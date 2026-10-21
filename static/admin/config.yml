@@ -1,6 +1,6 @@
 backend:
   name: github
-  repo: YOUR_GITHUB_USERNAME/soroor-art-portfolio # این خط را بعدا باید تغییر بدهی
+  repo: soroorkheirollahi/soroor-art-portfolio
   branch: main
 
 media_folder: "static/images/uploads"
@@ -31,7 +31,7 @@ collections:
       - { label: "لینک یوتیوب", name: "youtube", widget: "string", required: false }
       - { label: "توضیحات", name: "body", widget: "markdown" }
 
-  # بخش سوم: تنظیمات سایدبار (عکس هنرمند و تبلیغات)
+  # بخش سوم: تنظیمات سایدبار
   - name: "settings"
     label: "تنظیمات سایت (عکس و تبلیغات)"
     files:
@@ -41,4 +41,4 @@ collections:
         fields:
           - { label: "عکس هنرمند", name: "profile_image", widget: "image" }
           - { label: "عکس تبلیغاتی (زیر عکس هنرمند)", name: "ad_image", widget: "image", required: false }
-          - { label: "لینک تبلیغات (با کلیک روی عکس باز می‌شود)", name: "ad_link", widget: "string", required: false }
+          - { label: "لینک تبلیغات", name: "ad_link", widget: "string", required: false }
