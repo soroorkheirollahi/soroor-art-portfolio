@@ -1,0 +1,27 @@
+baseURL = 'http://example.org/'
+languageCode = 'en-us'
+title = 'Soroor Kheirollahi'
+theme = 'mostafa'
+
+[params]
+  [params.author]
+    name = "Soroor Kheirollahi"
+    avatar = "/images/artist.png"    # عکس خودت
+    bio = "Visual Artist & Painter"
+    banner_ad = "/images/ad.png"     # عکس تبلیغاتی یا پوستر
+    banner_link = "https://instagram.com" # لینکی که با کلیک روی پوستر باز می‌شود
+
+[languages]
+  [languages.en]
+    languageName = "English"
+    weight = 1
+    contentDir = "content/en"
+    title = "Soroor Kheirollahi - Visual Artist"
+  [languages.fa]
+    languageName = "فارسی"
+    weight = 2
+    contentDir = "content/fa"
+    title = "سرور خیراللهی - هنرمند تجسمی"
+    languagedirection = "rtl"
+    [pagination]
+  pagerSize = 4
