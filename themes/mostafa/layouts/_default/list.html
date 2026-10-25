@@ -1,10 +1,9 @@
 {{ define "main" }}
 <div class="main-content-wrapper">
-  <!-- حلقه اصلی: عکس‌ها را ۴ تا ۴ تا جدا می‌کند -->
-  {{ range .Pages.Chunk 4 }}
+  <!-- عکس‌ها را ۴ تا ۴ تا جدا می‌کند و برای هر ۴ تا یک کادر می‌سازد -->
+  {{ range .Site.RegularPages.Chunk 4 }}
     <div class="horizontal-gallery-container">
       <div class="grid-4-container">
-        <!-- حلقه داخلی: ۴ عکس داخل هر کادر -->
         {{ range . }}
           <a href="{{ .RelPermalink }}" class="grid-item">
             {{ if .Params.image }}
@@ -20,31 +19,29 @@
 </div>
 
 <style>
-  /* ۱. تنظیم فضای کل صفحه */
   .main-content-wrapper {
-    margin-left: 320px !important; /* فاصله از سایدبار */
+    margin-left: 320px !important; 
     padding-top: 40px !important;
     padding-bottom: 50px !important;
     display: flex !important;
     flex-direction: column !important;
-    align-items: center !important; /* وسط چین کردن کادرها */
+    align-items: center !important; /* وسط چین کردن */
     box-sizing: border-box !important;
   }
 
-  /* ۲. کادر مستطیل افقی (برای هر ۴ عکس) */
+  /* کادر ۱.۵ برابر بزرگتر شد (از ۸۰۰x۵۰۰ به ۱۲۰۰x۷۵۰) */
   .horizontal-gallery-container {
     width: 100% !important;
-    max-width: 800px !important; /* عرض ۸۰۰ پیکسل */
-    height: 500px !important; /* ارتفاع ۵۰۰ پیکسل */
-    background-color: #2a2a2a !important; /* کادر طوسی */
+    max-width: 1200px !important; /* ۸۰۰ ضربدر ۱.۵ */
+    height: 750px !important; /* ۵۰۰ ضربدر ۱.۵ */
+    background-color: #2a2a2a !important; 
     border: 1px solid #444 !important;
     border-radius: 12px !important;
-    padding: 15px !important;
+    padding: 20px !important; 
     box-sizing: border-box !important;
-    margin-bottom: 30px !important; /* فاصله بین کادرهای ۴ تایی */
+    margin-bottom: 40px !important; /* فاصله بین کادرها */
   }
 
-  /* ۳. شبکه ۴ خانه‌ای داخل هر کادر */
   .grid-4-container {
     display: grid !important;
     grid-template-columns: repeat(2, 1fr) !important;
@@ -54,7 +51,6 @@
     height: 100% !important;
   }
 
-  /* ۴. استایل هر عکس */
   .grid-item {
     display: block !important;
     width: 100% !important;
@@ -73,30 +69,15 @@
     width: 100% !important;
     height: 100% !important;
     object-fit: cover !important;
-    display: block !important;
   }
 
-  /* واکنش‌گرا برای موبایل */
   @media (max-width: 1024px) {
-    .main-content-wrapper {
-      margin-left: 0 !important;
-      padding-left: 15px !important;
-      padding-right: 15px !important;
-    }
-    .horizontal-gallery-container {
-      height: auto !important;
-      min-height: 400px !important;
-    }
+    .main-content-wrapper { margin-left: 0 !important; padding: 20px !important; }
+    .horizontal-gallery-container { height: auto !important; min-height: 500px !important; }
   }
-  
   @media (max-width: 600px) {
-    .grid-4-container {
-      grid-template-columns: 1fr !important;
-      grid-template-rows: auto !important;
-    }
-    .grid-item {
-      height: 250px !important;
-    }
+    .grid-4-container { grid-template-columns: 1fr !important; grid-template-rows: auto !important; }
+    .grid-item { height: 300px !important; }
   }
 </style>
 {{ end }}
