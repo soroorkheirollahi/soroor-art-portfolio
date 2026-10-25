@@ -25,3 +25,5 @@ theme = 'mostafa'
     languagedirection = "rtl"
     [pagination]
   pagerSize = 4
+  defaultContentLanguage = "en"
+defaultContentLanguageInSubdir = false
