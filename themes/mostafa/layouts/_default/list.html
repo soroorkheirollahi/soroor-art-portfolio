@@ -1,6 +1,6 @@
 {{ define "main" }}
 <div class="main-content-wrapper">
-  <!-- کادر گالری -->
+  <!-- کادر خاکستری (با حاشیه داخلی برای عکس‌ها) -->
   <div class="posts-grid-container">
     {{ $paginator := .Paginate (where .Site.RegularPages "Type" "posts") }}
     {{ range $paginator.Pages }}
@@ -38,34 +38,33 @@
 </div>
 
 <style>
-  /* ۱. انتقال کل کادر به سمت چپ و ایجاد حاشیه بزرگ در سمت راست */
+  /* ۱. جانمایی کل کادر (فاصله از سایدبار سمت چپ و فاصله از لبه راست) */
   .main-content-wrapper {
-    margin-left: 250px !important; /* فاصله از عکس هنرمند */
-    padding-right: 15% !important; /* حاشیه بزرگ سمت راست تا کادر به چپ هل داده شود */
-    padding-top: 30px !important;
-    width: 100% !important;
-    box-sizing: border-box !important;
+    margin-left: 260px !important; /* فاصله از عکس هنرمند */
+    padding-right: 15% !important; /* این حاشیه بزرگ باعث می‌شود کادر به سمت چپ هل داده شود */
+    padding-top: 40px !important;
     display: flex !important;
-    justify-content: flex-start !important; /* چیدمان از سمت چپ */
+    flex-direction: column !important;
+    align-items: flex-start !important; /* چیدمان از سمت چپ شروع شود */
+    box-sizing: border-box !important;
   }
 
-  /* ۲. کادر خاکستری (دور کل عکس‌ها) */
+  /* ۲. کادر خاکستری (نسبت ۱۳ در ۹) */
   .posts-grid-container {
     display: grid !important;
     grid-template-columns: repeat(2, 1fr) !important;
     gap: 15px !important; /* فاصله بین عکس‌ها */
-    background-color: #2a2a2a !important; /* کادر طوسی */
-    padding: 15px !important; /* حاشیه داخلی کادر */
+    background-color: #2a2a2a !important; /* رنگ کادر خاکستری */
+    padding: 20px !important; /* حاشیه داخلی برای اینکه کادر دور عکس‌ها دیده شود */
     border-radius: 12px !important;
     border: 1px solid #444 !important;
     
     width: 100% !important;
-    max-width: 650px !important; /* عرض نهایی کادر عکس‌ها */
+    max-width: 520px !important; /* عرض ثابت برای حفظ تناسب کادر */
     box-sizing: border-box !important;
-    align-items: start !important; /* جلوگیری از کشیدگی کارت‌ها */
   }
 
-  /* ۳. استایل هر عکس (بازگشت به سایز طبیعی) */
+  /* ۳. هر عکس (مستطیل عمودی ۴ در ۶) */
   .post-card {
     background: #1e1e1e !important;
     border-radius: 8px !important;
@@ -76,14 +75,15 @@
     flex-direction: column !important;
   }
   .post-card:hover {
-    transform: scale(1.02) !important;
+    transform: scale(1.03) !important;
     border-color: #f97316 !important;
   }
   
-  /* این بخش مهم‌ترین تغییر است: حذف ارتفاع ثابت و نسبت اجباری */
+  /* این بخش دقیقاً نسبت ۴ به ۶ را ایجاد می‌کند */
   .post-thumbnail {
     width: 100% !important;
-    height: auto !important; /* ارتفاع بر اساس تناسب خود عکس */
+    aspect-ratio: 4 / 6 !important; /* نسبت عرض به ارتفاع */
+    object-fit: cover !important; /* برش متناسب عکس بدون کشیدگی */
     display: block !important;
   }
   
@@ -97,12 +97,11 @@
 
   /* ۴. دکمه‌های صفحه‌بندی */
   .pagination {
-    text-align: center !important;
     margin-top: 30px !important;
-    width: 100% !important;
-    max-width: 650px !important;
     display: flex !important;
     justify-content: center !important;
+    width: 100% !important;
+    max-width: 520px !important;
   }
   .page-btn {
     display: inline-block !important;
@@ -125,12 +124,15 @@
       margin-left: 0 !important;
       padding-left: 20px !important;
       padding-right: 20px !important;
-      padding-top: 20px !important;
+      align-items: center !important; /* در موبایل وسط چین شود */
     }
   }
   @media (max-width: 600px) {
     .posts-grid-container {
-      grid-template-columns: 1fr !important;
+      grid-template-columns: 1fr !important; /* در موبایل ۱ ستونه */
+    }
+    .post-thumbnail {
+      aspect-ratio: 4 / 5 !important; /* کمی کوتاه‌تر در موبایل */
     }
   }
 </style>
