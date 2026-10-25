@@ -8,4 +8,4 @@ image = "images/artist.png"
 
 این یک توضیح نمونه برای اولین اثر هنری است. در اینجا می‌توانید درباره تکنیک، الهام‌بخش و داستان پشت این اثر بنویسید.
 
-![اثر هنری اول](images/artist.png)
+![اثر هنری اول](https://soroorkheirollahi.github.io/soroor-art-portfolio/images/art1.png)
