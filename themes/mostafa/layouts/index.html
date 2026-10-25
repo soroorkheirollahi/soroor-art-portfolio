@@ -35,14 +35,27 @@
 </div>
 {{ end }}
 
-<!-- استایل‌های چیدمان ۴ ستونه -->
+<!-- استایل‌های چیدمان ۲x۲ و فاصله از سایدبار -->
 <style>
   .posts-grid-container {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(2, 1fr); /* ۲ ستون (۲ عکس بالا، ۲ عکس پایین) */
     gap: 20px;
     margin-top: 30px;
+    margin-bottom: 30px;
+    max-width: 800px; /* حداکثر عرض کادر وسط */
+    margin-left: auto;
+    margin-right: auto;
   }
+
+  /* در لپ‌تاپ و مانیتور، کادر را از سایدبار سمت چپ فاصله می‌دهیم */
+  @media (min-width: 1200px) {
+    .posts-grid-container {
+      margin-left: 260px; /* فاصله گرفتن از عکس هنرمند */
+      max-width: calc(100% - 300px);
+    }
+  }
+
   .post-card {
     background: #1e1e1e;
     border-radius: 10px;
@@ -56,7 +69,7 @@
   }
   .post-thumbnail {
     width: 100%;
-    height: 200px;
+    height: 250px;
     object-fit: cover;
   }
   .post-title {
@@ -90,12 +103,15 @@
     color: #000;
     font-weight: bold;
   }
-  /* برای موبایل و تبلت */
-  @media (max-width: 1024px) {
-    .posts-grid-container { grid-template-columns: repeat(2, 1fr); }
-  }
-  @media (max-width: 600px) {
-    .posts-grid-container { grid-template-columns: 1fr; }
+  
+  /* در موبایل تک ستونه شود */
+  @media (max-width: 768px) {
+    .posts-grid-container {
+      grid-template-columns: 1fr;
+      margin-left: auto !important;
+      max-width: 100%;
+      padding: 0 15px;
+    }
   }
 </style>
 {{ end }}
