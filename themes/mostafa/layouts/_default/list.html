@@ -1,14 +1,131 @@
 {{ define "main" }}
-    {{ $paginator := .Paginate (where .Data.Pages "Type" "ne" "page") (index .Site.Params "paginate" | default 7) }}
-    {{ range  where .Paginator.Pages "Type" "ne" "page" }}
-        <div class="article-wrapper u-cf">
-            {{  if or (fileExists (print "layouts/partials/content-type/" .Type ".html") ) (fileExists (print "themes/bilberry-hugo-theme/layouts/partials/content-type/" .Type ".html")) }}
-                {{ partial (print "content-type/" .Type ".html") (dict "ctx" . "template_type" "multiple") }}
-            {{ else }}
-                {{ partial "content-type/article.html" (dict "ctx" . "template_type" "multiple") }}
-            {{ end }}
-        </div>
+<div class="main-content-wrapper">
+  <!-- کادر گالری -->
+  <div class="posts-grid-container">
+    {{ $paginator := .Paginate (where .Site.RegularPages "Type" "posts") }}
+    {{ range $paginator.Pages }}
+      <article class="post-card">
+        <a href="{{ .RelPermalink }}">
+          {{ if .Params.image }}
+            <img src="{{ .Params.image }}" alt="{{ .Title }}" class="post-thumbnail">
+          {{ else }}
+            <div class="no-image">بدون عکس</div>
+          {{ end }}
+          <h2 class="post-title">{{ .Title }}</h2>
+        </a>
+      </article>
+    {{ end }}
+  </div>
+
+  <!-- دکمه‌های صفحه‌بندی (بیرون از کادر) -->
+  {{ if gt $paginator.TotalPages 1 }}
+  <div class="pagination">
+    {{ if $paginator.HasPrev }}
+      <a href="{{ $paginator.Prev.URL }}" class="page-btn">&laquo; Back</a>
     {{ end }}
 
-    {{ partial "paginator.html" . }}
+    {{ range $paginator.Pagers }}
+      <a href="{{ .URL }}" class="page-btn {{ if eq .PageNumber $paginator.PageNumber }}active{{ end }}">
+        {{ .PageNumber }}
+      </a>
+    {{ end }}
+
+    {{ if $paginator.HasNext }}
+      <a href="{{ $paginator.Next.URL }}" class="page-btn">Next &raquo;</a>
+    {{ end }}
+  </div>
+  {{ end }}
+</div>
+
+<style>
+  /* ۱. تنظیم فضای کل صفحه و وسط‌چین کردن کادر */
+  .main-content-wrapper {
+    margin-left: 250px; /* فاصله برای سایدبار سمت چپ */
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* وسط چین کردن کادر در فضای باقی‌مانده */
+    padding-top: 120px; /* آوردن عکس‌ها به پایین */
+    padding-bottom: 50px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  /* ۲. کادر خاکستری دور عکس‌ها */
+  .posts-grid-container {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important; /* ۲ ستون */
+    gap: 2px !important; /* فاصله خیلی کم برای اینکه خطوط جداکننده دیده شوند */
+    background-color: #f97316 !important; /* رنگ نارنجی برای خطوط جداکننده وسط */
+    padding: 4px !important; /* حاشیه نارنجی دور کادر */
+    border-radius: 10px !important;
+    max-width: 600px !important;
+    width: 100%;
+  }
+
+  /* ۳. استایل هر عکس (تبدیل به مستطیل عمودی) */
+  .post-card {
+    background: #2a2a2a !important; /* رنگ خاکستری کادر داخلی */
+    border-radius: 0 !important; /* مربعی شدن گوشه‌ها برای چسبیدن به خطوط */
+    overflow: hidden !important;
+    border: none !important;
+    transition: transform 0.3s !important;
+  }
+  .post-card:hover {
+    transform: scale(1.02) !important;
+    z-index: 5;
+    box-shadow: 0 0 15px rgba(249, 115, 22, 0.5);
+  }
+  
+  .post-thumbnail {
+    width: 100% !important;
+    height: 350px !important; /* ارتفاع بیشتر برای مستطیل عمودی شدن */
+    object-fit: cover !important;
+    display: block !important;
+  }
+  
+  .post-title {
+    font-size: 1.1rem !important;
+    padding: 10px !important;
+    color: #f97316 !important;
+    text-align: center !important;
+    margin: 0 !important;
+  }
+
+  /* ۴. دکمه‌های صفحه‌بندی */
+  .pagination {
+    text-align: center !important;
+    margin-top: 30px !important;
+  }
+  .page-btn {
+    display: inline-block !important;
+    padding: 8px 15px !important;
+    margin: 0 5px !important;
+    border: 1px solid #f97316 !important;
+    color: #f97316 !important;
+    text-decoration: none !important;
+    border-radius: 5px !important;
+  }
+  .page-btn.active {
+    background-color: #f97316 !important;
+    color: #000 !important;
+    font-weight: bold !important;
+  }
+
+  /* ۵. واکنش‌گرا برای موبایل */
+  @media (max-width: 1024px) {
+    .main-content-wrapper {
+      margin-left: 0 !important;
+      padding-top: 50px !important;
+    }
+  }
+  @media (max-width: 600px) {
+    .posts-grid-container {
+      grid-template-columns: 1fr !important; /* در موبایل ۱ ستونه */
+      max-width: 90% !important;
+    }
+    .post-thumbnail {
+      height: 250px !important; /* ارتفاع کمتر در موبایل */
+    }
+  }
+</style>
 {{ end }}
