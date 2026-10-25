@@ -78,5 +78,52 @@
     {{ end }}
 
 </div>
-
+<!-- بخش عکس هنرمند و تبلیغات (سایدبار شناور) -->
+{{ if site.Data.sidebar }}
+  <div class="custom-sidebar-profile">
+    {{ if site.Data.sidebar.profile_image }}
+      <img src="{{ site.Data.sidebar.profile_image }}" alt="Artist Profile" class="custom-profile-img">
+    {{ end }}
+    
+    {{ if site.Data.sidebar.ad_image }}
+      <a href="{{ site.Data.sidebar.ad_link | default '#' }}" target="_blank">
+        <img src="{{ site.Data.sidebar.ad_image }}" alt="Advertisement" class="custom-ad-img">
+      </a>
+    {{ end }}
+  </div>
+  <style>
+    .custom-sidebar-profile {
+      position: fixed;
+      top: 100px;
+      left: 20px;
+      width: 200px;
+      background: #1e1e1e; /* رنگ پس‌زمینه تیره متناسب با قالب */
+      padding: 15px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+      z-index: 1000;
+      display: none; /* در موبایل مخفی است */
+      border: 1px solid #333;
+    }
+    .custom-profile-img {
+      border-radius: 50%;
+      width: 100%;
+      height: auto;
+      aspect-ratio: 1/1;
+      object-fit: cover;
+      margin-bottom: 15px;
+      border: 3px solid #f97316; /* رنگ نارنجی قالب */
+    }
+    .custom-ad-img {
+      width: 100%;
+      border-radius: 8px;
+    }
+    /* این کد باعث می‌شود کادر فقط در کامپیوتر و لپ‌تاپ دیده شود */
+    @media (min-width: 1200px) {
+      .custom-sidebar-profile {
+        display: block;
+      }
+    }
+  </style>
+{{ end }}
 
