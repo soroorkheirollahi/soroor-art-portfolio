@@ -82,12 +82,12 @@
 {{ if site.Data.sidebar }}
   <div class="custom-sidebar-profile">
     {{ if site.Data.sidebar.profile_image }}
-      <img src="{{ site.Data.sidebar.profile_image | relURL }}" alt="Artist Profile" class="custom-profile-img">
+      <img src="{{ site.Data.sidebar.profile_image | absURL }}" alt="Artist Profile" class="custom-profile-img">
     {{ end }}
     
     {{ if site.Data.sidebar.ad_image }}
       <a href="{{ site.Data.sidebar.ad_link | default '#' }}" target="_blank">
-        <img src="{{ site.Data.sidebar.ad_image | relURL }}" alt="Advertisement" class="custom-ad-img">
+        <img src="{{ site.Data.sidebar.ad_image | absURL }}" alt="Advertisement" class="custom-ad-img">
       </a>
     {{ end }}
   </div>
