@@ -150,27 +150,38 @@
 </style>
 <script>
   document.addEventListener('DOMContentLoaded', function() {
-    // پیدا کردن تمام عکس‌های داخل پست‌ها
-    const postImages = document.querySelectorAll('.post-content img, .content img, article img');
+    const postImages = document.querySelectorAll('article img, .post-content img');
     
     postImages.forEach(img => {
-      // اگر عکس داخل لینک نبود، آن را داخل لینک قرار بده تا GLightbox کار کند
+      let imgSrc = img.getAttribute('src');
+      
+      // اصلاح خودکار آدرس عکس‌ها
+      if (imgSrc && !imgSrc.startsWith('http')) {
+        if(imgSrc.startsWith('/')) {
+            imgSrc = imgSrc.substring(1); // حذف اسلش اول
+        }
+        img.setAttribute('src', 'https://soroorkheirollahi.github.io/soroor-art-portfolio/' + imgSrc);
+      }
+
+      // قرار دادن عکس داخل لینک برای لایت‌باکس
       if (img.parentElement.tagName !== 'A') {
         const a = document.createElement('a');
-        a.href = img.src;
+        a.href = img.getAttribute('src');
         a.classList.add('glightbox');
         img.parentNode.insertBefore(a, img);
         a.appendChild(img);
       } else {
         img.parentElement.classList.add('glightbox');
+        img.parentElement.href = img.getAttribute('src');
       }
     });
 
-    // فعال‌سازی لایت‌باکس
-    const lightbox = GLightbox({
-      selector: '.glightbox',
-      touchNavigation: true,
-      loop: true
-    });
+    if (typeof GLightbox !== 'undefined') {
+      const lightbox = GLightbox({
+        selector: '.glightbox',
+        touchNavigation: true,
+        loop: true
+      });
+    }
   });
 </script>
