@@ -27,3 +27,5 @@ theme = 'mostafa'
   pagerSize = 4
   defaultContentLanguage = "en"
 defaultContentLanguageInSubdir = false
+buildFuture = true
+buildDrafts = true
