@@ -165,3 +165,39 @@
     }
   });
 </script>
+<style>
+  /* استایل دادن به نوار منو (تب‌ها) */
+  .navigation {
+    background-color: transparent !important;
+    border: none !important;
+    display: flex !important;
+    justify-content: center !important; /* وسط چین کردن منو */
+    align-items: center !important;
+    gap: 30px !important;
+    margin-top: 20px !important;
+    padding: 10px !important;
+    border-bottom: 1px solid #333 !important; /* خط ظریف زیر منو */
+  }
+  .navigation ul {
+    list-style: none !important;
+    display: flex !important;
+    gap: 20px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+  .navigation ul li a {
+    color: #ccc !important;
+    text-decoration: none !important;
+    font-size: 1.1rem !important;
+    transition: color 0.3s !important;
+  }
+  .navigation ul li a:hover, 
+  .navigation ul li.active a {
+    color: #f97316 !important; /* رنگ نارنجی برای لینک فعال */
+    font-weight: bold !important;
+  }
+  .languages ul li a {
+    color: #f97316 !important;
+    font-size: 0.9rem !important;
+  }
+</style>
