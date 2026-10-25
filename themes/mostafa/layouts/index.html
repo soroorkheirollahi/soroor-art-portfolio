@@ -1,138 +1,118 @@
 {{ define "main" }}
 <div class="main-content-wrapper">
-  <!-- کادر خاکستری (با حاشیه داخلی) -->
-  <div class="posts-grid-container">
-    {{ $paginator := .Paginate (where .Site.RegularPages "Type" "posts") }}
-    {{ range $paginator.Pages }}
-      <article class="post-card">
-        <a href="{{ .RelPermalink }}">
-          {{ if .Params.image }}
-            <img src="{{ .Params.image }}" alt="{{ .Title }}" class="post-thumbnail">
-          {{ else }}
-            <div class="no-image">بدون عکس</div>
-          {{ end }}
-          <h2 class="post-title">{{ .Title }}</h2>
-        </a>
-      </article>
-    {{ end }}
+  <!-- کادر مستطیل افقی -->
+  <div class="horizontal-gallery-container">
+    <div class="swiper mySwiper">
+      <div class="swiper-wrapper">
+        <!-- حلقه برای آوردن همه عکس‌ها -->
+        {{ range where .Site.RegularPages "Type" "posts" }}
+          <div class="swiper-slide">
+            <a href="{{ .RelPermalink }}">
+              {{ if .Params.image }}
+                <img src="{{ .Params.image }}" alt="{{ .Title }}" class="post-thumbnail">
+              {{ else }}
+                <div class="no-image">بدون عکس</div>
+              {{ end }}
+              <h2 class="post-title">{{ .Title }}</h2>
+            </a>
+          </div>
+        {{ end }}
+      </div>
+      <!-- فلش‌های چپ و راست -->
+      <div class="swiper-button-next"></div>
+      <div class="swiper-button-prev"></div>
+    </div>
   </div>
-
-  <!-- دکمه‌های صفحه‌بندی -->
-  {{ if gt $paginator.TotalPages 1 }}
-  <div class="pagination">
-    {{ if $paginator.HasPrev }}
-      <a href="{{ $paginator.Prev.URL }}" class="page-btn">&laquo; Back</a>
-    {{ end }}
-
-    {{ range $paginator.Pagers }}
-      <a href="{{ .URL }}" class="page-btn {{ if eq .PageNumber $paginator.PageNumber }}active{{ end }}">
-        {{ .PageNumber }}
-      </a>
-    {{ end }}
-
-    {{ if $paginator.HasNext }}
-      <a href="{{ $paginator.Next.URL }}" class="page-btn">Next &raquo;</a>
-    {{ end }}
-  </div>
-  {{ end }}
 </div>
 
+<!-- افزودن فایل‌های CSS و JS مربوط به اسلایدر (Swiper) -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
 <style>
-  /* ۱. انتقال کادر به سمت راست با افزایش حاشیه چپ */
+  /* ۱. تنظیم فضای کل صفحه (انتقال به راست و وسط‌چین کردن) */
   .main-content-wrapper {
-    margin-left: 340px !important; /* از ۲۶۰ به ۳۴۰ افزایش یافت تا به راست شیفت شود */
-    padding-right: 5% !important; /* فضای راست کمتر شد تا کادر به راست برود */
+    margin-left: 320px !important; /* فاصله از عکس هنرمند */
     padding-top: 40px !important;
     display: flex !important;
-    flex-direction: column !important;
-    align-items: flex-start !important;
+    justify-content: center !important; /* وسط چین کردن کادر افقی */
     box-sizing: border-box !important;
   }
 
-  /* ۲. کوچک‌تر کردن کادر خاکستری (دقیقاً ۵۰ درصد کوچک‌تر شد) */
-  .posts-grid-container {
-    display: grid !important;
-    grid-template-columns: repeat(2, 1fr) !important;
-    gap: 8px !important; /* فاصله بین عکس‌ها متناسب با سایز جدید */
-    background-color: #2a2a2a !important; /* کادر طوسی یکدست */
-    padding: 8px !important; /* حاشیه داخلی کادر متناسب شد */
-    border-radius: 12px !important;
-    border: 1px solid #444 !important;
-    
+  /* ۲. کادر مستطیل افقی (عریض و با ارتفاع کمتر) */
+  .horizontal-gallery-container {
     width: 100% !important;
-    max-width: 200px !important; /* اینجا از ۴۰۰ به ۲۰۰ تغییر کرد (۵۰ درصد) */
+    max-width: 800px !important; /* عرض زیاد برای حالت افقی */
+    height: 500px !important; /* ارتفاع ثابت */
+    background-color: #2a2a2a !important; /* کادر طوسی */
+    border: 1px solid #444 !important;
+    border-radius: 12px !important;
+    padding: 20px !important;
     box-sizing: border-box !important;
   }
 
-  /* ۳. حذف کادر ناقص داخلی (شفاف کردن کارت‌ها) */
-  .post-card {
-    background: transparent !important; /* کادر ناقص طوسی حذف شد */
-    border: none !important; /* حاشیه‌های اضافه حذف شد */
-    border-radius: 8px !important;
-    overflow: hidden !important;
-    transition: transform 0.3s !important;
+  /* تنظیمات خود اسلایدر */
+  .swiper {
+    width: 100%;
+    height: 100%;
+  }
+
+  .swiper-slide {
     display: flex !important;
     flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
   }
-  .post-card:hover {
-    transform: scale(1.03) !important;
-  }
-  
-  /* ۴. عکس‌ها (مستطیل عمودی ۴x۶ با گوشه گرد) */
+
+  /* ۳. استایل عکس‌ها (متناسب با کادر افقی) */
   .post-thumbnail {
-    width: 100% !important;
-    aspect-ratio: 4 / 6 !important; /* نسبت عرض به ارتفاع */
-    object-fit: cover !important; /* برش متناسب */
-    display: block !important;
-    border-radius: 8px !important; /* گوشه‌های عکس گرد شد */
+    max-width: 100% !important;
+    max-height: 380px !important; /* حداکثر ارتفاع عکس */
+    object-fit: contain !important; /* عکس کامل دیده شود بدون کشیدگی */
+    border-radius: 8px !important;
   }
-  
+
   .post-title {
-    font-size: 0.85rem !important; /* فونت کمی کوچک‌تر شد تا در کادر جدید جا شود */
-    padding: 5px 2px !important;
+    font-size: 1.2rem !important;
     color: #f97316 !important;
     text-align: center !important;
-    margin: 0 !important;
+    margin-top: 15px !important;
+    text-decoration: none !important;
   }
 
-  /* ۵. دکمه‌های صفحه‌بندی */
-  .pagination {
-    margin-top: 20px !important;
-    display: flex !important;
-    justify-content: center !important;
-    width: 100% !important;
-    max-width: 200px !important; /* هم‌اندازه با کادر جدید */
-  }
-  .page-btn {
-    display: inline-block !important;
-    padding: 6px 10px !important;
-    margin: 0 2px !important;
-    border: 1px solid #f97316 !important;
+  /* ۴. رنگ نارنجی برای فلش‌های چپ و راست */
+  .swiper-button-next, .swiper-button-prev {
     color: #f97316 !important;
-    text-decoration: none !important;
-    border-radius: 5px !important;
-    font-size: 0.8rem !important;
-  }
-  .page-btn.active {
-    background-color: #f97316 !important;
-    color: #000 !important;
-    font-weight: bold !important;
   }
 
   /* واکنش‌گرا برای موبایل */
   @media (max-width: 1024px) {
     .main-content-wrapper {
       margin-left: 0 !important;
-      padding-left: 20px !important;
-      padding-right: 20px !important;
-      align-items: center !important;
+      padding-left: 15px !important;
+      padding-right: 15px !important;
     }
-  }
-  @media (max-width: 600px) {
-    .posts-grid-container {
-      grid-template-columns: 1fr !important;
-      max-width: 150px !important;
+    .horizontal-gallery-container {
+      height: 400px !important; /* ارتفاع کمتر در موبایل */
+    }
+    .post-thumbnail {
+      max-height: 280px !important;
     }
   }
 </style>
+
+<script>
+  // فعال‌سازی اسلایدر
+  document.addEventListener('DOMContentLoaded', function () {
+    var swiper = new Swiper(".mySwiper", {
+      slidesPerView: 1, /* فقط یک عکس در هر لحظه نشان بده */
+      spaceBetween: 30,
+      loop: true, /* وقتی به آخر رسید، دوباره از اول شروع کند */
+      navigation: {
+        nextEl: ".swiper-button-next",
+        prevEl: ".swiper-button-prev",
+      },
+    });
+  });
+</script>
 {{ end }}
