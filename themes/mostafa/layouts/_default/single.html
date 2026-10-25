@@ -1,9 +1,154 @@
 {{ define "main" }}
-    <div class="article-wrapper u-cf single">
-        {{  if or (fileExists (print "layouts/partials/content-type/" .Type ".html") ) (fileExists (print "themes/bilberry-hugo-theme/layouts/partials/content-type/" .Type ".html")) }}
-            {{ partial (print "content-type/" .Type ".html") (dict "ctx" . "template_type" "single") }}
-        {{ else }}
-            {{ partial "content-type/article.html" (dict "ctx" . "template_type" "single") }}
+<div class="single-post-container">
+  <!-- لینک بازگشت به گالری -->
+  <a href="{{ .Site.BaseURL }}posts/" class="back-to-gallery">&larr; Back to Gallery</a>
+
+  <div class="post-content-wrapper">
+    <!-- عکس بزرگ -->
+    {{ if .Params.image }}
+      <div class="large-image-box">
+        <img src="{{ .Params.image }}" alt="{{ .Title }}" class="large-image">
+      </div>
+    {{ end }}
+
+    <!-- مشخصات و توضیحات -->
+    <div class="details-box">
+      <h1 class="post-title">{{ .Title }}</h1>
+      
+      <div class="post-meta">
+        <span class="date">📅 {{ .Date.Format "January 2, 2006" }}</span>
+        {{ if .Params.tags }}
+          <span class="tags">
+            🏷️ 
+            {{ range .Params.tags }}
+              <span class="tag">{{ . }}</span>
+            {{ end }}
+          </span>
         {{ end }}
+      </div>
+
+      <!-- متن توضیحات -->
+      <div class="post-body">
+        {{ .Content }}
+      </div>
+
+      <!-- لینک یوتیوب (اگر وجود داشته باشد) -->
+      {{ if .Params.youtube }}
+        <div class="youtube-box">
+          <h3>Watch Video:</h3>
+          <a href="{{ .Params.youtube }}" target="_blank" class="youtube-btn">Open YouTube Video</a>
+        </div>
+      {{ end }}
     </div>
+  </div>
+</div>
+
+<style>
+  /* استایل صفحه اختصاصی */
+  .single-post-container {
+    margin-left: 260px !important; /* فاصله از سایدبار */
+    padding: 40px 20px !important;
+    max-width: 900px !important;
+    margin-right: auto !important;
+    display: flex !important;
+    flex-direction: column !important;
+  }
+
+  .back-to-gallery {
+    color: #f97316 !important;
+    text-decoration: none !important;
+    font-size: 1.1rem !important;
+    margin-bottom: 20px !important;
+    display: inline-block !important;
+  }
+  
+  .back-to-gallery:hover {
+    text-decoration: underline !important;
+  }
+
+  /* ساختار دو ستونه در دسکتاپ */
+  .post-content-wrapper {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 40px !important;
+    background-color: #2a2a2a !important; /* کادر خاکستری */
+    border: 1px solid #444 !important;
+    border-radius: 15px !important;
+    padding: 30px !important;
+  }
+
+  /* عکس بزرگ */
+  .large-image-box {
+    flex: 1 1 500px !important; /* عکس فضای بیشتری بگیرد */
+    max-width: 100% !important;
+  }
+  .large-image {
+    width: 100% !important;
+    height: auto !important;
+    border-radius: 10px !important;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.5) !important;
+  }
+
+  /* مشخصات */
+  .details-box {
+    flex: 1 1 300px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+  }
+
+  .post-title {
+    color: #f97316 !important;
+    font-size: 2rem !important;
+    margin-top: 0 !important;
+    margin-bottom: 15px !important;
+  }
+
+  .post-meta {
+    color: #aaa !important;
+    font-size: 1rem !important;
+    margin-bottom: 25px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 10px !important;
+  }
+
+  .tag {
+    background-color: #333 !important;
+    padding: 3px 8px !important;
+    border-radius: 5px !important;
+    font-size: 0.9rem !important;
+    margin-right: 5px !important;
+  }
+
+  .post-body {
+    color: #ddd !important;
+    font-size: 1.1rem !important;
+    line-height: 1.8 !important;
+  }
+
+  .youtube-btn {
+    display: inline-block !important;
+    background-color: #f97316 !important;
+    color: #000 !important;
+    padding: 10px 20px !important;
+    text-decoration: none !important;
+    border-radius: 8px !important;
+    font-weight: bold !important;
+    margin-top: 20px !important;
+  }
+
+  /* واکنش‌گرا برای موبایل */
+  @media (max-width: 1024px) {
+    .single-post-container {
+      margin-left: 0 !important;
+    }
+  }
+  @media (max-width: 768px) {
+    .post-content-wrapper {
+      flex-direction: column !important; /* زیر هم بیایند */
+      padding: 15px !important;
+    }
+  }
+</style>
 {{ end }}
