@@ -2,7 +2,7 @@ backend:
   name: github
   repo: soroorkheirollahi/soroor-art-portfolio
   branch: main
-  base_url: https://api.netlify.com
+  base_url: base_url: https://sveltia-auth.soroorkheyrollahi.workers.dev
   auth_endpoint: auth
   site_domain: benevolent-squirrel-f41ec2.netlify.app
 
