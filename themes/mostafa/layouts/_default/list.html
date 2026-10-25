@@ -17,7 +17,7 @@
     {{ end }}
   </div>
 
-  <!-- دکمه‌های صفحه‌بندی (بیرون از کادر) -->
+  <!-- دکمه‌های صفحه‌بندی -->
   {{ if gt $paginator.TotalPages 1 }}
   <div class="pagination">
     {{ if $paginator.HasPrev }}
@@ -38,48 +38,48 @@
 </div>
 
 <style>
-  /* ۱. تنظیم فضای کل صفحه و وسط‌چین کردن کادر */
+  /* ۱. تنظیم فضای کل صفحه و وسط‌چین کردن دقیق کادر */
   .main-content-wrapper {
-    margin-left: 250px; /* فاصله برای سایدبار سمت چپ */
-    display: flex;
-    flex-direction: column;
-    align-items: center; /* وسط چین کردن کادر در فضای باقی‌مانده */
-    padding-top: 120px; /* آوردن عکس‌ها به پایین */
-    padding-bottom: 50px;
-    width: 100%;
-    box-sizing: border-box;
+    padding-top: 100px !important; /* آوردن کادر به پایین */
+    padding-left: 260px !important; /* فاصله از سایدبار سمت چپ */
+    padding-right: 20px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important; /* وسط چین کردن کادر در فضای باقی‌مانده */
+    width: 100% !important;
+    box-sizing: border-box !important;
   }
 
   /* ۲. کادر خاکستری دور عکس‌ها */
   .posts-grid-container {
     display: grid !important;
     grid-template-columns: repeat(2, 1fr) !important; /* ۲ ستون */
-    gap: 2px !important; /* فاصله خیلی کم برای اینکه خطوط جداکننده دیده شوند */
-    background-color: #f97316 !important; /* رنگ نارنجی برای خطوط جداکننده وسط */
-    padding: 4px !important; /* حاشیه نارنجی دور کادر */
+    gap: 15px !important; /* فاصله معمولی بین عکس‌ها */
+    background-color: #2a2a2a !important; /* پس‌زمینه طوسی کادر */
+    padding: 15px !important; /* حاشیه داخلی کادر */
     border-radius: 10px !important;
-    max-width: 600px !important;
-    width: 100%;
+    border: 1px solid #444 !important;
+    max-width: 700px !important; /* عرض کادر برای زیبایی */
+    width: 100% !important;
   }
 
-  /* ۳. استایل هر عکس (تبدیل به مستطیل عمودی) */
+  /* ۳. استایل هر عکس (مستطیل عمودی) */
   .post-card {
-    background: #2a2a2a !important; /* رنگ خاکستری کادر داخلی */
-    border-radius: 0 !important; /* مربعی شدن گوشه‌ها برای چسبیدن به خطوط */
+    background: #1e1e1e !important;
+    border-radius: 8px !important;
     overflow: hidden !important;
-    border: none !important;
+    border: 1px solid #333 !important;
     transition: transform 0.3s !important;
   }
   .post-card:hover {
-    transform: scale(1.02) !important;
-    z-index: 5;
-    box-shadow: 0 0 15px rgba(249, 115, 22, 0.5);
+    transform: scale(1.03) !important;
+    border-color: #f97316 !important;
   }
   
   .post-thumbnail {
     width: 100% !important;
-    height: 350px !important; /* ارتفاع بیشتر برای مستطیل عمودی شدن */
-    object-fit: cover !important;
+    aspect-ratio: 3 / 4 !important; /* نسبت ۳ به ۴ برای مستطیل عمودی */
+    object-fit: cover !important; /* پر کردن کادر بدون به هم ریختن تناسب */
     display: block !important;
   }
   
@@ -114,17 +114,13 @@
   /* ۵. واکنش‌گرا برای موبایل */
   @media (max-width: 1024px) {
     .main-content-wrapper {
-      margin-left: 0 !important;
+      padding-left: 20px !important; /* در موبایل فاصله سایدبار حذف می‌شود */
       padding-top: 50px !important;
     }
   }
   @media (max-width: 600px) {
     .posts-grid-container {
       grid-template-columns: 1fr !important; /* در موبایل ۱ ستونه */
-      max-width: 90% !important;
-    }
-    .post-thumbnail {
-      height: 250px !important; /* ارتفاع کمتر در موبایل */
     }
   }
 </style>
