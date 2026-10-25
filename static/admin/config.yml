@@ -5,7 +5,7 @@ backend:
   base_url: https://sveltia-auth.soroorkheyrollahi.workers.dev
 
 media_folder: "static/images/uploads"
-public_folder: "/images/uploads"
+public_folder: "images/uploads"
 
 collections:
   - name: "artworks_en"
