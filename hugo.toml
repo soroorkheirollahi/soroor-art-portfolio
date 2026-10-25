@@ -31,3 +31,22 @@ buildDrafts = true
     contentDir = "content/fa"
     title = "سرور خیراللهی - هنرمند تجسمی"
     languagedirection = "rtl"
+[[menu.main]]
+  name = "Home"
+  url = "/"
+  weight = 1
+
+[[menu.main]]
+  name = "Artworks"
+  url = "/posts/"
+  weight = 2
+
+[[menu.main]]
+  name = "Resume"
+  url = "/resume/"
+  weight = 3
+
+[[menu.main]]
+  name = "About"
+  url = "/about/"
+  weight = 4
