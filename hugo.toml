@@ -3,13 +3,21 @@ languageCode = 'en-us'
 title = 'Soroor Kheirollahi'
 theme = 'mostafa'
 
+defaultContentLanguage = "en"
+defaultContentLanguageInSubdir = false
+buildFuture = true
+buildDrafts = true
+
+[pagination]
+  pagerSize = 4
+
 [params]
   [params.author]
     name = "Soroor Kheirollahi"
-    avatar = "/images/artist.png"    # عکس خودت
+    avatar = "images/artist.png"
     bio = "Visual Artist & Painter"
-    banner_ad = "/images/ad.png"     # عکس تبلیغاتی یا پوستر
-    banner_link = "https://instagram.com" # لینکی که با کلیک روی پوستر باز می‌شود
+    banner_ad = "images/ad.png"
+    banner_link = "https://instagram.com"
 
 [languages]
   [languages.en]
@@ -23,9 +31,3 @@ theme = 'mostafa'
     contentDir = "content/fa"
     title = "سرور خیراللهی - هنرمند تجسمی"
     languagedirection = "rtl"
-    [pagination]
-  pagerSize = 4
-  defaultContentLanguage = "en"
-defaultContentLanguageInSubdir = false
-buildFuture = true
-buildDrafts = true
