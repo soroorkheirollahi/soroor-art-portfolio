@@ -38,72 +38,51 @@
 </div>
 
 <style>
-  /* ۱. آوردن کل محتوا به پایین و فاصله از سایدبار */
+  /* ۱. تنظیم فضای کل صفحه و وسط‌چین کردن کادر */
   .main-content-wrapper {
-    padding-top: 150px !important; /* عکس‌ها میان پایین‌تر */
-    margin-left: 260px !important; /* فاصله از عکس هنرمند در سمت چپ */
-    margin-right: 20px !important;
+    margin-left: 250px; /* فاصله برای سایدبار سمت چپ */
     display: flex;
     flex-direction: column;
-    align-items: center; /* وسط چین کردن کل کادر */
+    align-items: center; /* وسط چین کردن کادر در فضای باقی‌مانده */
+    padding-top: 120px; /* آوردن عکس‌ها به پایین */
+    padding-bottom: 50px;
+    width: 100%;
+    box-sizing: border-box;
   }
 
   /* ۲. کادر خاکستری دور عکس‌ها */
   .posts-grid-container {
     display: grid !important;
     grid-template-columns: repeat(2, 1fr) !important; /* ۲ ستون */
-    gap: 4px !important; /* فاصله بسیار کم بین ستون‌ها */
-    background-color: #2a2a2a !important; /* رنگ خاکستری کادر */
-    padding: 8px !important; /* حاشیه داخلی کادر */
+    gap: 2px !important; /* فاصله خیلی کم برای اینکه خطوط جداکننده دیده شوند */
+    background-color: #f97316 !important; /* رنگ نارنجی برای خطوط جداکننده وسط */
+    padding: 4px !important; /* حاشیه نارنجی دور کادر */
     border-radius: 10px !important;
-    border: 1px solid #444 !important;
-    max-width: 550px !important; /* عرض کم برای نزدیک شدن ستون‌ها به هم */
-    position: relative !important; /* برای قرارگیری خطوط وسط */
-    margin-bottom: 30px !important;
+    max-width: 600px !important;
+    width: 100%;
   }
 
-  /* ۳. رسم خطوط جداکننده (به شکل +) دقیقاً در فاصله بین عکس‌ها */
-  .posts-grid-container::before {
-    content: "" !important;
-    position: absolute !important;
-    top: 50% !important; /* خط افقی */
-    left: 0 !important;
-    right: 0 !important;
-    height: 2px !important;
-    background-color: #f97316 !important; /* رنگ نارنجی */
-    z-index: 10 !important;
-    pointer-events: none !important;
-  }
-  .posts-grid-container::after {
-    content: "" !important;
-    position: absolute !important;
-    left: 50% !important; /* خط عمودی */
-    top: 0 !important;
-    bottom: 0 !important;
-    width: 2px !important;
-    background-color: #f97316 !important;
-    z-index: 10 !important;
-    pointer-events: none !important;
-  }
-
-  /* استایل هر عکس */
+  /* ۳. استایل هر عکس (تبدیل به مستطیل عمودی) */
   .post-card {
-    background: #1e1e1e !important;
-    border-radius: 5px !important;
+    background: #2a2a2a !important; /* رنگ خاکستری کادر داخلی */
+    border-radius: 0 !important; /* مربعی شدن گوشه‌ها برای چسبیدن به خطوط */
     overflow: hidden !important;
-    border: 1px solid #333 !important;
+    border: none !important;
     transition: transform 0.3s !important;
   }
   .post-card:hover {
     transform: scale(1.02) !important;
-    border-color: #f97316 !important;
+    z-index: 5;
+    box-shadow: 0 0 15px rgba(249, 115, 22, 0.5);
   }
+  
   .post-thumbnail {
     width: 100% !important;
-    height: 200px !important; /* ارتفاع عکس‌ها */
+    height: 350px !important; /* ارتفاع بیشتر برای مستطیل عمودی شدن */
     object-fit: cover !important;
     display: block !important;
   }
+  
   .post-title {
     font-size: 1.1rem !important;
     padding: 10px !important;
@@ -115,7 +94,7 @@
   /* ۴. دکمه‌های صفحه‌بندی */
   .pagination {
     text-align: center !important;
-    margin-top: 10px !important;
+    margin-top: 30px !important;
   }
   .page-btn {
     display: inline-block !important;
@@ -135,19 +114,17 @@
   /* ۵. واکنش‌گرا برای موبایل */
   @media (max-width: 1024px) {
     .main-content-wrapper {
-      margin-left: 0 !important; /* در موبایل از سمت چپ فاصله نمی‌گیرد */
+      margin-left: 0 !important;
       padding-top: 50px !important;
-    }
-    .posts-grid-container {
-      max-width: 90% !important; /* در موبایل عرض بیشتری بگیرد */
     }
   }
   @media (max-width: 600px) {
     .posts-grid-container {
       grid-template-columns: 1fr !important; /* در موبایل ۱ ستونه */
+      max-width: 90% !important;
     }
-    .posts-grid-container::before, .posts-grid-container::after {
-      display: none !important; /* خطوط در موبایل پنهان شوند */
+    .post-thumbnail {
+      height: 250px !important; /* ارتفاع کمتر در موبایل */
     }
   }
 </style>
