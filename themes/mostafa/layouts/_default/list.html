@@ -38,36 +38,34 @@
 </div>
 
 <style>
-  /* ۱. تنظیم فضای کل صفحه (فاصله دقیق از سایدبار و لبه راست) */
+  /* ۱. انتقال کل کادر به سمت چپ و ایجاد حاشیه بزرگ در سمت راست */
   .main-content-wrapper {
-    margin-left: 240px !important; /* فاصله دقیق از کادر سمت چپ (سایدبار) */
-    padding-right: 20px !important; /* فاصله از لبه راست صفحه */
-    padding-top: 40px !important;
-    width: calc(100% - 260px) !important; /* محاسبه دقیق عرض باقی‌مانده */
+    margin-left: 250px !important; /* فاصله از عکس هنرمند */
+    padding-right: 15% !important; /* حاشیه بزرگ سمت راست تا کادر به چپ هل داده شود */
+    padding-top: 30px !important;
+    width: 100% !important;
     box-sizing: border-box !important;
-    
-    /* این دو خط کادر را دقیقاً در وسط فضای باقی‌مانده قرار می‌دهند */
     display: flex !important;
-    flex-direction: column !important;
-    align-items: center !important; 
+    justify-content: flex-start !important; /* چیدمان از سمت چپ */
   }
 
-  /* ۲. کادر خاکستری (حالا دقیقاً دور کل عکس‌ها را می‌گیرد) */
+  /* ۲. کادر خاکستری (دور کل عکس‌ها) */
   .posts-grid-container {
     display: grid !important;
     grid-template-columns: repeat(2, 1fr) !important;
     gap: 15px !important; /* فاصله بین عکس‌ها */
-    background-color: #2a2a2a !important; /* کادر طوسی دور همه عکس‌ها */
+    background-color: #2a2a2a !important; /* کادر طوسی */
     padding: 15px !important; /* حاشیه داخلی کادر */
     border-radius: 12px !important;
     border: 1px solid #444 !important;
     
     width: 100% !important;
-    max-width: 600px !important; /* عرض نهایی کادر */
+    max-width: 650px !important; /* عرض نهایی کادر عکس‌ها */
     box-sizing: border-box !important;
+    align-items: start !important; /* جلوگیری از کشیدگی کارت‌ها */
   }
 
-  /* ۳. استایل هر عکس */
+  /* ۳. استایل هر عکس (بازگشت به سایز طبیعی) */
   .post-card {
     background: #1e1e1e !important;
     border-radius: 8px !important;
@@ -82,10 +80,10 @@
     border-color: #f97316 !important;
   }
   
+  /* این بخش مهم‌ترین تغییر است: حذف ارتفاع ثابت و نسبت اجباری */
   .post-thumbnail {
     width: 100% !important;
-    height: 250px !important; /* ارتفاع ثابت برای یکدستی */
-    object-fit: cover !important;
+    height: auto !important; /* ارتفاع بر اساس تناسب خود عکس */
     display: block !important;
   }
   
@@ -101,6 +99,10 @@
   .pagination {
     text-align: center !important;
     margin-top: 30px !important;
+    width: 100% !important;
+    max-width: 650px !important;
+    display: flex !important;
+    justify-content: center !important;
   }
   .page-btn {
     display: inline-block !important;
@@ -121,8 +123,8 @@
   @media (max-width: 1024px) {
     .main-content-wrapper {
       margin-left: 0 !important;
-      width: 100% !important;
       padding-left: 20px !important;
+      padding-right: 20px !important;
       padding-top: 20px !important;
     }
   }
