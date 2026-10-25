@@ -11,7 +11,7 @@ collections:
   # بخش نقاشی‌ها
   - name: "paintings"
     label: "Paintings (نقاشی‌ها)"
-    folder: "content/en/paintings"
+    folder: "content/en/posts"
     create: true
     fields:
       - { label: "Title", name: "title", widget: "string" }
