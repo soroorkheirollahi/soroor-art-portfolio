@@ -35,7 +35,7 @@ collections:
     files:
       - name: "sidebar"
         label: "اطلاعات سایدبار"
-        file: "content/settings/sidebar.json"
+        file: "data/sidebar.json"
         fields:
           - { label: "عکس هنرمند", name: "profile_image", widget: "image" }
           - { label: "عکس تبلیغاتی (زیر عکس هنرمند)", name: "ad_image", widget: "image", required: false }
