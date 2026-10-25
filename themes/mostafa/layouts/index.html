@@ -1,51 +1,83 @@
 {{ define "main" }}
-<div class="posts-grid-container">
-  {{ $paginator := .Paginate (where .Site.RegularPages "Type" "posts") }}
-  {{ range $paginator.Pages }}
-    <article class="post-card">
-      <a href="{{ .RelPermalink }}">
-        {{ if .Params.image }}
-          <img src="{{ .Params.image }}" alt="{{ .Title }}" class="post-thumbnail">
-        {{ else }}
-          <div class="no-image">بدون عکس</div>
-        {{ end }}
-        <h2 class="post-title">{{ .Title }}</h2>
+<div class="main-content-wrapper">
+  <div class="posts-grid-container">
+    {{ $paginator := .Paginate (where .Site.RegularPages "Type" "posts") }}
+    {{ range $paginator.Pages }}
+      <article class="post-card">
+        <a href="{{ .RelPermalink }}">
+          {{ if .Params.image }}
+            <img src="{{ .Params.image }}" alt="{{ .Title }}" class="post-thumbnail">
+          {{ else }}
+            <div class="no-image">بدون عکس</div>
+          {{ end }}
+          <h2 class="post-title">{{ .Title }}</h2>
+        </a>
+        <p class="post-summary">{{ .Summary | truncate 100 }}</p>
+      </article>
+    {{ end }}
+  </div>
+
+  <!-- دکمه‌های صفحه‌بندی (بیرون از کادر گالری) -->
+  {{ if gt $paginator.TotalPages 1 }}
+  <div class="pagination">
+    {{ if $paginator.HasPrev }}
+      <a href="{{ $paginator.Prev.URL }}" class="page-btn">&laquo; Back</a>
+    {{ end }}
+
+    {{ range $paginator.Pagers }}
+      <a href="{{ .URL }}" class="page-btn {{ if eq .PageNumber $paginator.PageNumber }}active{{ end }}">
+        {{ .PageNumber }}
       </a>
-      <p class="post-summary">{{ .Summary | truncate 100 }}</p>
-    </article>
+    {{ end }}
+
+    {{ if $paginator.HasNext }}
+      <a href="{{ $paginator.Next.URL }}" class="page-btn">Next &raquo;</a>
+    {{ end }}
+  </div>
   {{ end }}
 </div>
 
-<!-- دکمه‌های صفحه‌بندی -->
-{{ if gt $paginator.TotalPages 1 }}
-<div class="pagination">
-  {{ if $paginator.HasPrev }}
-    <a href="{{ $paginator.Prev.URL }}" class="page-btn">&laquo; Back</a>
-  {{ end }}
-
-  {{ range $paginator.Pagers }}
-    <a href="{{ .URL }}" class="page-btn {{ if eq .PageNumber $paginator.PageNumber }}active{{ end }}">
-      {{ .PageNumber }}
-    </a>
-  {{ end }}
-
-  {{ if $paginator.HasNext }}
-    <a href="{{ $paginator.Next.URL }}" class="page-btn">Next &raquo;</a>
-  {{ end }}
-</div>
-{{ end }}
-
-<!-- استایل‌های چیدمان ۲x۲ و فاصله از سایدبار -->
+<!-- استایل‌های چیدمان و طراحی -->
 <style>
+  /* فاصله بالای صفحه */
+  .main-content-wrapper {
+    padding-top: 20px;
+  }
+
+  /* کادر خاکستری دور گالری */
   .posts-grid-container {
     display: grid;
     grid-template-columns: repeat(2, 1fr); /* ۲ ستون (۲ عکس بالا، ۲ عکس پایین) */
-    gap: 20px;
-    margin-top: 30px;
+    gap: 8px; /* فاصله بسیار کم بین عکس‌ها */
+    margin-top: 20px;
     margin-bottom: 30px;
-    max-width: 800px; /* حداکثر عرض کادر وسط */
+    max-width: 800px;
     margin-left: auto;
     margin-right: auto;
+    background-color: #2a2a2a; /* رنگ پس‌زمینه خاکستری کادر */
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid #444;
+    position: relative;
+  }
+
+  /* جداکننده به شکل بعلاوه (+) بین عکس‌ها */
+  .posts-grid-container::before,
+  .posts-grid-container::after {
+    content: '+';
+    position: absolute;
+    color: #f97316; /* رنگ نارنجی سایت */
+    font-size: 30px;
+    font-weight: bold;
+    z-index: 10;
+  }
+  .posts-grid-container::before {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  .posts-grid-container::after {
+    display: none; /* فقط یک بعلاوه در مرکز کافی است */
   }
 
   /* در لپ‌تاپ و مانیتور، کادر را از سایدبار سمت چپ فاصله می‌دهیم */
@@ -58,19 +90,20 @@
 
   .post-card {
     background: #1e1e1e;
-    border-radius: 10px;
+    border-radius: 5px;
     overflow: hidden;
     border: 1px solid #333;
     transition: transform 0.3s;
   }
   .post-card:hover {
-    transform: translateY(-5px);
+    transform: scale(1.02);
     border-color: #f97316;
   }
   .post-thumbnail {
     width: 100%;
     height: 250px;
     object-fit: cover;
+    display: block;
   }
   .post-title {
     font-size: 1.2rem;
@@ -85,6 +118,8 @@
     font-size: 0.9rem;
     color: #ccc;
   }
+
+  /* استایل دکمه‌های صفحه‌بندی */
   .pagination {
     text-align: center;
     margin: 40px 0;
@@ -103,7 +138,7 @@
     color: #000;
     font-weight: bold;
   }
-  
+
   /* در موبایل تک ستونه شود */
   @media (max-width: 768px) {
     .posts-grid-container {
