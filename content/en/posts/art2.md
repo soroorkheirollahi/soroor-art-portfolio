@@ -1,8 +1,8 @@
 ---
-title: art2
-date: 2026-10-25T20:04:00
-image: /images/uploads/art2.jpg
-youtube: ''
+title: "art2"
+date: 2026-10-25T20:00:00
+image: "https://soroorkheirollahi.github.io/soroor-art-portfolio/images/uploads/art2.jpg"
+youtube: ""
 ---
 
-art1
+art2
