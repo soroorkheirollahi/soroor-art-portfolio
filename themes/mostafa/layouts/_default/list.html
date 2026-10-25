@@ -40,31 +40,31 @@
 <style>
   /* ۱. تنظیم فضای کل صفحه (فاصله دقیق از سایدبار و لبه راست) */
   .main-content-wrapper {
-    padding-left: 260px !important; /* فاصله از سایدبار سمت چپ */
-    padding-right: 40px !important; /* فاصله از لبه راست صفحه */
+    margin-left: 240px !important; /* فاصله دقیق از کادر سمت چپ (سایدبار) */
+    padding-right: 20px !important; /* فاصله از لبه راست صفحه */
     padding-top: 40px !important;
-    width: 100% !important;
+    width: calc(100% - 260px) !important; /* محاسبه دقیق عرض باقی‌مانده */
     box-sizing: border-box !important;
     
-    /* این دو خط جادویی باعث می‌شوند کادر دقیقاً در وسطِ فضای باقی‌مانده بنشیند */
+    /* این دو خط کادر را دقیقاً در وسط فضای باقی‌مانده قرار می‌دهند */
     display: flex !important;
     flex-direction: column !important;
     align-items: center !important; 
   }
 
-  /* ۲. کادر خاکستری (متناسب با عکس‌ها و با عرض محدود) */
+  /* ۲. کادر خاکستری (حالا دقیقاً دور کل عکس‌ها را می‌گیرد) */
   .posts-grid-container {
     display: grid !important;
     grid-template-columns: repeat(2, 1fr) !important;
     gap: 15px !important; /* فاصله بین عکس‌ها */
-    background-color: #2a2a2a !important; /* کادر طوسی */
+    background-color: #2a2a2a !important; /* کادر طوسی دور همه عکس‌ها */
     padding: 15px !important; /* حاشیه داخلی کادر */
     border-radius: 12px !important;
     border: 1px solid #444 !important;
     
     width: 100% !important;
-    max-width: 600px !important; /* نهایت عرض کادر عکس‌ها (باعث می‌شود کادر بزرگ نشود) */
-    margin: 0 auto !important; /* تضمین وسط چین بودن */
+    max-width: 600px !important; /* عرض نهایی کادر */
+    box-sizing: border-box !important;
   }
 
   /* ۳. استایل هر عکس */
@@ -84,7 +84,7 @@
   
   .post-thumbnail {
     width: 100% !important;
-    height: 300px !important; /* ارتفاع ثابت برای یکدستی */
+    height: 250px !important; /* ارتفاع ثابت برای یکدستی */
     object-fit: cover !important;
     display: block !important;
   }
@@ -120,8 +120,9 @@
   /* واکنش‌گرا برای موبایل */
   @media (max-width: 1024px) {
     .main-content-wrapper {
+      margin-left: 0 !important;
+      width: 100% !important;
       padding-left: 20px !important;
-      padding-right: 20px !important;
       padding-top: 20px !important;
     }
   }
