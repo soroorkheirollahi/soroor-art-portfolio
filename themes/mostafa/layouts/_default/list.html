@@ -1,6 +1,6 @@
 {{ define "main" }}
 <div class="main-content-wrapper">
-  <!-- کادر خاکستری (با حاشیه داخلی برای عکس‌ها) -->
+  <!-- کادر خاکستری (با حاشیه داخلی) -->
   <div class="posts-grid-container">
     {{ $paginator := .Paginate (where .Site.RegularPages "Type" "posts") }}
     {{ range $paginator.Pages }}
@@ -38,79 +38,80 @@
 </div>
 
 <style>
-  /* ۱. جانمایی کل کادر (فاصله از سایدبار سمت چپ و فاصله از لبه راست) */
+  /* ۱. انتقال کادر به سمت راست با افزایش حاشیه چپ */
   .main-content-wrapper {
-    margin-left: 260px !important; /* فاصله از عکس هنرمند */
-    padding-right: 15% !important; /* این حاشیه بزرگ باعث می‌شود کادر به سمت چپ هل داده شود */
+    margin-left: 340px !important; /* از ۲۶۰ به ۳۴۰ افزایش یافت تا به راست شیفت شود */
+    padding-right: 5% !important; /* فضای راست کمتر شد تا کادر به راست برود */
     padding-top: 40px !important;
     display: flex !important;
     flex-direction: column !important;
-    align-items: flex-start !important; /* چیدمان از سمت چپ شروع شود */
+    align-items: flex-start !important;
     box-sizing: border-box !important;
   }
 
-  /* ۲. کادر خاکستری (نسبت ۱۳ در ۹) */
+  /* ۲. کوچک‌تر کردن کادر خاکستری (حدود ۷۵ درصد) */
   .posts-grid-container {
     display: grid !important;
     grid-template-columns: repeat(2, 1fr) !important;
-    gap: 15px !important; /* فاصله بین عکس‌ها */
-    background-color: #2a2a2a !important; /* رنگ کادر خاکستری */
-    padding: 20px !important; /* حاشیه داخلی برای اینکه کادر دور عکس‌ها دیده شود */
+    gap: 10px !important; /* فاصله بین عکس‌ها کمی کمتر شد */
+    background-color: #2a2a2a !important; /* کادر طوسی یکدست */
+    padding: 12px !important; /* حاشیه داخلی کادر */
     border-radius: 12px !important;
     border: 1px solid #444 !important;
     
     width: 100% !important;
-    max-width: 520px !important; /* عرض ثابت برای حفظ تناسب کادر */
+    max-width: 400px !important; /* عرض از ۵۲۰ به ۴۰۰ کاهش یافت (کوچک‌تر شد) */
     box-sizing: border-box !important;
   }
 
-  /* ۳. هر عکس (مستطیل عمودی ۴ در ۶) */
+  /* ۳. حذف کادر ناقص داخلی (شفاف کردن کارت‌ها) */
   .post-card {
-    background: #1e1e1e !important;
+    background: transparent !important; /* کادر ناقص طوسی حذف شد */
+    border: none !important; /* حاشیه‌های اضافه حذف شد */
     border-radius: 8px !important;
     overflow: hidden !important;
-    border: 1px solid #333 !important;
     transition: transform 0.3s !important;
     display: flex !important;
     flex-direction: column !important;
   }
   .post-card:hover {
     transform: scale(1.03) !important;
-    border-color: #f97316 !important;
   }
   
-  /* این بخش دقیقاً نسبت ۴ به ۶ را ایجاد می‌کند */
+  /* ۴. عکس‌ها (مستطیل عمودی ۴x۶ با گوشه گرد) */
   .post-thumbnail {
     width: 100% !important;
     aspect-ratio: 4 / 6 !important; /* نسبت عرض به ارتفاع */
-    object-fit: cover !important; /* برش متناسب عکس بدون کشیدگی */
+    object-fit: cover !important; /* برش متناسب */
     display: block !important;
+    border-radius: 8px !important; /* گوشه‌های عکس گرد شد */
   }
   
   .post-title {
     font-size: 1rem !important;
-    padding: 10px !important;
+    padding: 8px 5px !important;
     color: #f97316 !important;
     text-align: center !important;
     margin: 0 !important;
   }
 
-  /* ۴. دکمه‌های صفحه‌بندی */
+  /* ۵. دکمه‌های صفحه‌بندی */
   .pagination {
-    margin-top: 30px !important;
+    margin-top: 20px !important;
     display: flex !important;
     justify-content: center !important;
     width: 100% !important;
-    max-width: 520px !important;
+    max-width: 400px !important; /* هم‌اندازه با کادر */
   }
   .page-btn {
     display: inline-block !important;
-    padding: 8px 15px !important;
-    margin: 0 5px !important;
+    padding: 6px 12px !important;
+    margin: 0 3px !important;
     border: 1px solid #f97316 !important;
     color: #f97316 !important;
     text-decoration: none !important;
     border-radius: 5px !important;
+    font-size: 0.9rem !important;
   }
   .page-btn.active {
     background-color: #f97316 !important;
@@ -124,15 +125,13 @@
       margin-left: 0 !important;
       padding-left: 20px !important;
       padding-right: 20px !important;
-      align-items: center !important; /* در موبایل وسط چین شود */
+      align-items: center !important;
     }
   }
   @media (max-width: 600px) {
     .posts-grid-container {
-      grid-template-columns: 1fr !important; /* در موبایل ۱ ستونه */
-    }
-    .post-thumbnail {
-      aspect-ratio: 4 / 5 !important; /* کمی کوتاه‌تر در موبایل */
+      grid-template-columns: 1fr !important;
+      max-width: 300px !important;
     }
   }
 </style>
