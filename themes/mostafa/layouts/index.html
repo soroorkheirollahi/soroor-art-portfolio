@@ -1,118 +1,83 @@
 {{ define "main" }}
 <div class="main-content-wrapper">
-  <!-- کادر مستطیل افقی -->
-  <div class="horizontal-gallery-container">
-    <div class="swiper mySwiper">
-      <div class="swiper-wrapper">
-        <!-- حلقه برای آوردن همه عکس‌ها -->
-        {{ range where .Site.RegularPages "Type" "posts" }}
-          <div class="swiper-slide">
-            <a href="{{ .RelPermalink }}">
-              {{ if .Params.image }}
-                <img src="{{ .Params.image }}" alt="{{ .Title }}" class="post-thumbnail">
-              {{ else }}
-                <div class="no-image">بدون عکس</div>
-              {{ end }}
-              <h2 class="post-title">{{ .Title }}</h2>
-            </a>
-          </div>
+  <!-- عکس‌ها را ۴ تا ۴ تا جدا می‌کند و برای هر ۴ تا یک کادر می‌سازد -->
+  {{ range .Site.RegularPages.Chunk 4 }}
+    <div class="horizontal-gallery-container">
+      <div class="grid-4-container">
+        {{ range . }}
+          <a href="{{ .RelPermalink }}" class="grid-item">
+            {{ if .Params.image }}
+              <img src="{{ .Params.image }}" alt="{{ .Title }}" class="grid-image">
+            {{ else }}
+              <div class="no-image">بدون عکس</div>
+            {{ end }}
+          </a>
         {{ end }}
       </div>
-      <!-- فلش‌های چپ و راست -->
-      <div class="swiper-button-next"></div>
-      <div class="swiper-button-prev"></div>
     </div>
-  </div>
+  {{ end }}
 </div>
 
-<!-- افزودن فایل‌های CSS و JS مربوط به اسلایدر (Swiper) -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-
 <style>
-  /* ۱. تنظیم فضای کل صفحه (انتقال به راست و وسط‌چین کردن) */
   .main-content-wrapper {
-    margin-left: 320px !important; /* فاصله از عکس هنرمند */
+    margin-left: 320px !important; 
     padding-top: 40px !important;
-    display: flex !important;
-    justify-content: center !important; /* وسط چین کردن کادر افقی */
-    box-sizing: border-box !important;
-  }
-
-  /* ۲. کادر مستطیل افقی (عریض و با ارتفاع کمتر) */
-  .horizontal-gallery-container {
-    width: 100% !important;
-    max-width: 800px !important; /* عرض زیاد برای حالت افقی */
-    height: 500px !important; /* ارتفاع ثابت */
-    background-color: #2a2a2a !important; /* کادر طوسی */
-    border: 1px solid #444 !important;
-    border-radius: 12px !important;
-    padding: 20px !important;
-    box-sizing: border-box !important;
-  }
-
-  /* تنظیمات خود اسلایدر */
-  .swiper {
-    width: 100%;
-    height: 100%;
-  }
-
-  .swiper-slide {
+    padding-bottom: 50px !important;
     display: flex !important;
     flex-direction: column !important;
-    align-items: center !important;
-    justify-content: center !important;
+    align-items: center !important; /* وسط چین کردن */
+    box-sizing: border-box !important;
   }
 
-  /* ۳. استایل عکس‌ها (متناسب با کادر افقی) */
-  .post-thumbnail {
-    max-width: 100% !important;
-    max-height: 380px !important; /* حداکثر ارتفاع عکس */
-    object-fit: contain !important; /* عکس کامل دیده شود بدون کشیدگی */
+  /* کادر ۱.۵ برابر بزرگتر شد (از ۸۰۰x۵۰۰ به ۱۲۰۰x۷۵۰) */
+  .horizontal-gallery-container {
+    width: 100% !important;
+    max-width: 1200px !important; /* ۸۰۰ ضربدر ۱.۵ */
+    height: 750px !important; /* ۵۰۰ ضربدر ۱.۵ */
+    background-color: #2a2a2a !important; 
+    border: 1px solid #444 !important;
+    border-radius: 12px !important;
+    padding: 20px !important; 
+    box-sizing: border-box !important;
+    margin-bottom: 40px !important; /* فاصله بین کادرها */
+  }
+
+  .grid-4-container {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    grid-template-rows: repeat(2, 1fr) !important;
+    gap: 15px !important;
+    width: 100% !important;
+    height: 100% !important;
+  }
+
+  .grid-item {
+    display: block !important;
+    width: 100% !important;
+    height: 100% !important;
     border-radius: 8px !important;
+    overflow: hidden !important;
+    transition: transform 0.3s !important;
+  }
+  
+  .grid-item:hover {
+    transform: scale(1.02) !important;
+    box-shadow: 0 0 15px rgba(249, 115, 22, 0.5) !important;
   }
 
-  .post-title {
-    font-size: 1.2rem !important;
-    color: #f97316 !important;
-    text-align: center !important;
-    margin-top: 15px !important;
-    text-decoration: none !important;
+  .grid-image {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
   }
 
-  /* ۴. رنگ نارنجی برای فلش‌های چپ و راست */
-  .swiper-button-next, .swiper-button-prev {
-    color: #f97316 !important;
-  }
-
-  /* واکنش‌گرا برای موبایل */
   @media (max-width: 1024px) {
-    .main-content-wrapper {
-      margin-left: 0 !important;
-      padding-left: 15px !important;
-      padding-right: 15px !important;
-    }
-    .horizontal-gallery-container {
-      height: 400px !important; /* ارتفاع کمتر در موبایل */
-    }
-    .post-thumbnail {
-      max-height: 280px !important;
-    }
+    .main-content-wrapper { margin-left: 0 !important; padding: 20px !important; }
+    .horizontal-gallery-container { height: auto !important; min-height: 500px !important; }
+  }
+  @media (max-width: 600px) {
+    .grid-4-container { grid-template-columns: 1fr !important; grid-template-rows: auto !important; }
+    .grid-item { height: 300px !important; }
   }
 </style>
-
-<script>
-  // فعال‌سازی اسلایدر
-  document.addEventListener('DOMContentLoaded', function () {
-    var swiper = new Swiper(".mySwiper", {
-      slidesPerView: 1, /* فقط یک عکس در هر لحظه نشان بده */
-      spaceBetween: 30,
-      loop: true, /* وقتی به آخر رسید، دوباره از اول شروع کند */
-      navigation: {
-        nextEl: ".swiper-button-next",
-        prevEl: ".swiper-button-prev",
-      },
-    });
-  });
-</script>
 {{ end }}
