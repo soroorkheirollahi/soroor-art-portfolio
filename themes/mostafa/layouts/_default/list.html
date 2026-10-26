@@ -1,6 +1,5 @@
 {{ define "main" }}
 <div class="main-content-wrapper">
-  <!-- استفاده از .Pages برای اینکه فقط مجسمه‌ها را نشان دهد -->
   {{ $pages := .Pages }}
   {{ $total := len $pages }}
   {{ $totalChunks := div (add $total 3) 4 }}
@@ -14,8 +13,12 @@
         {{ range $chunk }}
           <a href="{{ .RelPermalink }}" class="grid-item">
             {{ if .Params.image }}
-              <!-- این خط مهم‌ترین تغییر است: اضافه شدن absURL -->
-              <img src="{{ .Params.image | absURL }}" alt="{{ .Title }}" class="grid-image">
+              <!-- این بخش آدرس عکس را به صورت دستی و کامل می‌سازد تا همیشه کار کند -->
+              {{ $img := .Params.image }}
+              {{ if not (hasPrefix $img "http") }}
+                {{ $img = printf "https://soroorkheirollahi.github.io/soroor-art-portfolio/%s" (strings.TrimPrefix "/" $img) }}
+              {{ end }}
+              <img src="{{ $img }}" alt="{{ .Title }}" class="grid-image">
             {{ else }}
               <div class="no-image">بدون عکس</div>
             {{ end }}
