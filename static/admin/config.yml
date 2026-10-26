@@ -46,3 +46,13 @@ collections:
           - { label: "عنوان", name: "title", widget: "string" }
           - { label: "تاریخ", name: "date", widget: "datetime" }
           - { label: "متن", name: "body", widget: "markdown" }
+  - name: "settings"
+    label: "Settings (تنظیمات سایدبار)"
+    files:
+      - name: "sidebar"
+        label: "Sidebar Info (عکس هنرمند و تبلیغات)"
+        file: "data/sidebar.json"
+        fields:
+          - { label: "Artist Profile Image", name: "profile_image", widget: "image" }
+          - { label: "Advertisement Image", name: "ad_image", widget: "image", required: false }
+          - { label: "Advertisement Link", name: "ad_link", widget: "string", required: false }
