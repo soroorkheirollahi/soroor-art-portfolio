@@ -7,7 +7,12 @@
     <!-- عکس بزرگ -->
     {{ if .Params.image }}
       <div class="large-image-box">
-        <img src="{{ .Params.image }}" alt="{{ .Title }}" class="large-image">
+        <!-- روش قطعی برای نمایش عکس بزرگ -->
+        {{ $img := .Params.image }}
+        {{ if not (hasPrefix $img "http") }}
+          {{ $img = printf "https://soroorkheirollahi.github.io/soroor-art-portfolio/%s" (strings.TrimPrefix "/" $img) }}
+        {{ end }}
+        <img src="{{ $img }}" alt="{{ .Title }}" class="large-image">
       </div>
     {{ end }}
 
