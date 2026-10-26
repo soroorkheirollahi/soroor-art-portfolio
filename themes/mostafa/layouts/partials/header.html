@@ -29,9 +29,7 @@
     </div>
 </header>
 
-
 <div class="navigation">
-
     <!-- Menu Navigation -->
     {{ if .Site.Menus.main }}
     <div class="pages menu-wrapper">
@@ -50,8 +48,6 @@
         </ul>
     </div>
     {{ end }}
-
-
 
     <!-- Language Chooser -->
     {{ if and (gt .Site.Languages 1) (.Site.Params.showHeaderLanguageChooser | default true) }}
@@ -78,8 +74,8 @@
         </ul>
     </div>
     {{ end }}
-
 </div>
+
 <!-- بخش عکس هنرمند و تبلیغات (سایدبار شناور) -->
 {{ if site.Data.sidebar }}
   <div class="custom-sidebar-profile">
@@ -99,7 +95,7 @@
       top: 100px;
       left: 20px;
       width: 200px;
-      background: #1e1e1e; /* رنگ پس‌زمینه تیره متناسب با قالب */
+      background: #1e1e1e;
       padding: 15px;
       border-radius: 10px;
       box-shadow: 0 4px 10px rgba(0,0,0,0.5);
@@ -114,13 +110,12 @@
       aspect-ratio: 1/1;
       object-fit: cover;
       margin-bottom: 15px;
-      border: 3px solid #f97316; /* رنگ نارنجی قالب */
+      border: 3px solid #f97316;
     }
     .custom-ad-img {
       width: 100%;
       border-radius: 8px;
     }
-    /* این کد باعث می‌شود کادر فقط در کامپیوتر و لپ‌تاپ دیده شود */
     @media (min-width: 1200px) {
       .custom-sidebar-profile {
         display: block;
@@ -128,22 +123,16 @@
     }
   </style>
 {{ end }}
+
 <script>
   document.addEventListener('DOMContentLoaded', function() {
     const postImages = document.querySelectorAll('article img, .post-content img');
-    
     postImages.forEach(img => {
       let imgSrc = img.getAttribute('src');
-      
-      // اصلاح خودکار آدرس عکس‌ها
       if (imgSrc && !imgSrc.startsWith('http')) {
-        if(imgSrc.startsWith('/')) {
-            imgSrc = imgSrc.substring(1); // حذف اسلش اول
-        }
+        if(imgSrc.startsWith('/')) { imgSrc = imgSrc.substring(1); }
         img.setAttribute('src', 'https://soroorkheirollahi.github.io/soroor-art-portfolio/' + imgSrc);
       }
-
-      // قرار دادن عکس داخل لینک برای لایت‌باکس
       if (img.parentElement.tagName !== 'A') {
         const a = document.createElement('a');
         a.href = img.getAttribute('src');
@@ -155,28 +144,24 @@
         img.parentElement.href = img.getAttribute('src');
       }
     });
-
     if (typeof GLightbox !== 'undefined') {
-      const lightbox = GLightbox({
-        selector: '.glightbox',
-        touchNavigation: true,
-        loop: true
-      });
+      const lightbox = GLightbox({ selector: '.glightbox', touchNavigation: true, loop: true });
     }
   });
 </script>
+
 <style>
   /* استایل دادن به نوار منو (تب‌ها) */
   .navigation {
     background-color: transparent !important;
     border: none !important;
     display: flex !important;
-    justify-content: center !important; /* وسط چین کردن منو */
+    justify-content: center !important;
     align-items: center !important;
     gap: 30px !important;
     margin-top: 20px !important;
     padding: 10px !important;
-    border-bottom: 1px solid #333 !important; /* خط ظریف زیر منو */
+    border-bottom: 1px solid #333 !important;
   }
   .navigation ul {
     list-style: none !important;
@@ -193,11 +178,38 @@
   }
   .navigation ul li a:hover, 
   .navigation ul li.active a {
-    color: #f97316 !important; /* رنگ نارنجی برای لینک فعال */
+    color: #f97316 !important;
     font-weight: bold !important;
   }
   .languages ul li a {
     color: #f97316 !important;
     font-size: 0.9rem !important;
+  }
+
+  /* ========================================= */
+  /* اصلاحات اختصاصی موبایل (لپ‌تاپ را خراب نمی‌کند) */
+  /* ========================================= */
+  @media (max-width: 1024px) {
+    body, html {
+      overflow-x: hidden !important; /* جلوگیری از اسکرول افقی */
+    }
+    .title {
+      font-size: 1.5rem !important;
+      text-align: center !important;
+      line-height: 1.4 !important;
+    }
+    .navigation {
+      flex-direction: column !important; /* منوها زیر هم بیایند */
+      gap: 10px !important;
+      padding: 15px 0 !important;
+    }
+    .navigation ul {
+      flex-wrap: wrap !important;
+      justify-content: center !important;
+      gap: 10px !important;
+    }
+    .navigation ul li a {
+      font-size: 0.95rem !important;
+    }
   }
 </style>
