@@ -7,7 +7,7 @@ date: 2026-10-26T21:46:00
 
 \*\*Visual Artist & Painter\*\*
 
-📧 soroorkheyrollahi@gmail.com | 📞 +98 935 675 0837 | 📍 Mahshahr, Khuzestan, Iran
+📧 soroorkheyrollahi@gmail.com | 📍 Mahshahr, Khuzestan, Iran
 
 \---
 
