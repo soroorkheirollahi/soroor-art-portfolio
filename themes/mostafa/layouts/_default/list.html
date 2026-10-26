@@ -1,8 +1,9 @@
 {{ define "main" }}
 <div class="main-content-wrapper">
-  {{ $pages := .Site.RegularPages }}
+  <!-- استفاده از .Pages برای اینکه فقط مجسمه‌ها را نشان دهد -->
+  {{ $pages := .Pages }}
   {{ $total := len $pages }}
-  {{ $totalChunks := div (add $total 3) 4 }} <!-- محاسبه تعداد کادرهای ۴تایی -->
+  {{ $totalChunks := div (add $total 3) 4 }}
 
   {{ range $i := seq $totalChunks }}
     {{ $start := mul (sub $i 1) 4 }}
@@ -13,7 +14,8 @@
         {{ range $chunk }}
           <a href="{{ .RelPermalink }}" class="grid-item">
             {{ if .Params.image }}
-              <img src="{{ .Params.image }}" alt="{{ .Title }}" class="grid-image">
+              <!-- این خط مهم‌ترین تغییر است: اضافه شدن absURL -->
+              <img src="{{ .Params.image | absURL }}" alt="{{ .Title }}" class="grid-image">
             {{ else }}
               <div class="no-image">بدون عکس</div>
             {{ end }}
