@@ -1,13 +1,12 @@
 {{ define "main" }}
 <div class="single-post-container">
   <!-- لینک بازگشت به گالری -->
-  <a href="{{ .Site.BaseURL }}posts/" class="back-to-gallery">&larr; Back to Gallery</a>
+  <a href="{{ .Site.BaseURL }}" class="back-to-gallery">&larr; Back</a>
 
   <div class="post-content-wrapper">
-    <!-- عکس بزرگ -->
+    <!-- عکس بزرگ (اگر وجود داشته باشد) -->
     {{ if .Params.image }}
       <div class="large-image-box">
-        <!-- روش قطعی برای نمایش عکس بزرگ -->
         {{ $img := .Params.image }}
         {{ if not (hasPrefix $img "http") }}
           {{ $img = printf "https://soroorkheirollahi.github.io/soroor-art-portfolio/%s" (strings.TrimPrefix "/" $img) }}
@@ -18,7 +17,12 @@
 
     <!-- مشخصات و توضیحات -->
     <div class="details-box">
-      <h1 class="post-title">{{ .Title }}</h1>
+      <!-- اگر عکس نبود (مثل صفحه رزومه)، عنوان بزرگ نمایش داده شود -->
+      {{ if not .Params.image }}
+        <h1 class="post-title">{{ .Title }}</h1>
+      {{ else }}
+        <h1 class="post-title" style="font-size: 1.8rem !important;">{{ .Title }}</h1>
+      {{ end }}
       
       <div class="post-meta">
         <span class="date">📅 {{ .Date.Format "January 2, 2006" }}</span>
@@ -32,12 +36,12 @@
         {{ end }}
       </div>
 
-      <!-- متن توضیحات -->
+      <!-- متن توضیحات (رزومه یا توضیحات عکس) -->
       <div class="post-body">
         {{ .Content }}
       </div>
 
-      <!-- لینک یوتیوب (اگر وجود داشته باشد) -->
+      <!-- لینک یوتیوب -->
       {{ if .Params.youtube }}
         <div class="youtube-box">
           <h3>Watch Video:</h3>
@@ -53,7 +57,7 @@
   .single-post-container {
     margin-left: 260px !important; /* فاصله از سایدبار */
     padding: 40px 20px !important;
-    max-width: 900px !important;
+    max-width: 1000px !important; /* عرض بیشتر برای خوانایی بهتر */
     margin-right: auto !important;
     display: flex !important;
     flex-direction: column !important;
@@ -65,26 +69,27 @@
     font-size: 1.1rem !important;
     margin-bottom: 20px !important;
     display: inline-block !important;
+    font-weight: bold !important;
   }
   
   .back-to-gallery:hover {
     text-decoration: underline !important;
   }
 
-  /* ساختار دو ستونه در دسکتاپ */
+  /* ساختار کادر خاکستری */
   .post-content-wrapper {
     display: flex !important;
     flex-wrap: wrap !important;
     gap: 40px !important;
-    background-color: #2a2a2a !important; /* کادر خاکستری */
+    background-color: #2a2a2a !important; 
     border: 1px solid #444 !important;
     border-radius: 15px !important;
-    padding: 30px !important;
+    padding: 40px !important;
   }
 
   /* عکس بزرگ */
   .large-image-box {
-    flex: 1 1 500px !important; /* عکس فضای بیشتری بگیرد */
+    flex: 1 1 500px !important; 
     max-width: 100% !important;
   }
   .large-image {
@@ -96,7 +101,7 @@
 
   /* مشخصات */
   .details-box {
-    flex: 1 1 300px !important;
+    flex: 1 1 100% !important; /* تمام عرض را بگیرد اگر عکس نباشد */
     display: flex !important;
     flex-direction: column !important;
     justify-content: center !important;
@@ -104,9 +109,10 @@
 
   .post-title {
     color: #f97316 !important;
-    font-size: 2rem !important;
+    font-size: 2.5rem !important; /* فونت بزرگ‌تر برای رزومه */
     margin-top: 0 !important;
-    margin-bottom: 15px !important;
+    margin-bottom: 20px !important;
+    text-align: center !important; /* وسط چین کردن عنوان */
   }
 
   .post-meta {
@@ -115,7 +121,48 @@
     margin-bottom: 25px !important;
     display: flex !important;
     flex-direction: column !important;
+    align-items: center !important; /* وسط چین */
     gap: 10px !important;
+  }
+
+  /* ========================================= */
+  /* استایل‌های اختصاصی برای متن رزومه (شکیل‌تر) */
+  /* ========================================= */
+  .post-body {
+    color: #ddd !important;
+    font-size: 1.15rem !important; /* سایز فونت بزرگ‌تر */
+    line-height: 2 !important; /* فاصله بین خطوط بیشتر برای خوانایی */
+  }
+
+  .post-body h1 {
+    color: #f97316 !important;
+    font-size: 2.2rem !important;
+    border-bottom: 2px solid #f97316 !important;
+    padding-bottom: 10px !important;
+    margin-bottom: 30px !important;
+    text-align: center !important;
+  }
+
+  .post-body h2 {
+    color: #f97316 !important;
+    font-size: 1.6rem !important;
+    margin-top: 40px !important;
+    margin-bottom: 15px !important;
+    border-bottom: 1px dashed #444 !important;
+    padding-bottom: 8px !important;
+  }
+
+  .post-body strong {
+    color: #fff !important; /* کلمات مهم سفید و برجسته */
+  }
+
+  .post-body ul {
+    padding-right: 20px !important; /* برای حالت راست‌چین فارسی */
+    padding-left: 20px !important;
+  }
+
+  .post-body li {
+    margin-bottom: 10px !important;
   }
 
   .tag {
@@ -124,12 +171,6 @@
     border-radius: 5px !important;
     font-size: 0.9rem !important;
     margin-right: 5px !important;
-  }
-
-  .post-body {
-    color: #ddd !important;
-    font-size: 1.1rem !important;
-    line-height: 1.8 !important;
   }
 
   .youtube-btn {
@@ -151,8 +192,11 @@
   }
   @media (max-width: 768px) {
     .post-content-wrapper {
-      flex-direction: column !important; /* زیر هم بیایند */
-      padding: 15px !important;
+      flex-direction: column !important; 
+      padding: 20px !important;
+    }
+    .post-body h1 {
+      font-size: 1.8rem !important;
     }
   }
 </style>
