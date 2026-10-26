@@ -13,7 +13,6 @@
         {{ range $chunk }}
           <a href="{{ .RelPermalink }}" class="grid-item">
             {{ if .Params.image }}
-              <!-- همان کد طلایی که در single.html کار کرد -->
               {{ $img := .Params.image }}
               {{ if not (hasPrefix $img "http") }}
                 {{ $img = printf "https://soroorkheirollahi.github.io/soroor-art-portfolio/%s" (strings.TrimPrefix "/" $img) }}
@@ -81,34 +80,24 @@
     object-fit: cover !important;
   }
 
+  /* اصلاحات موبایل */
   @media (max-width: 1024px) {
-    .main-content-wrapper { margin-left: 0 !important; padding: 20px !important; }
-    .horizontal-gallery-container { height: auto !important; min-height: 500px !important; }
-  }
-  @media (max-width: 600px) {
-    .grid-4-container { grid-template-columns: 1fr !important; grid-template-rows: auto !important; }
-    .grid-item { height: 300px !important; }
-  }
-  /* اصلاح کادرها در موبایل */
-  @media (max-width: 1024px) {
-    .main-content-wrapper, .single-post-container {
-      margin-left: 0 !important; /* حذف فاصله ۳۲۰ پیکسلی در موبایل */
+    .main-content-wrapper {
+      margin-left: 0 !important;
       padding: 15px !important;
       width: 100% !important;
     }
     .horizontal-gallery-container {
-      height: auto !important; /* ارتفاع آزاد در موبایل */
-      min-height: auto !important;
+      height: auto !important;
       padding: 10px !important;
     }
     .grid-4-container {
-      grid-template-columns: 1fr !important; /* عکس‌ها در موبایل تک‌ستونه شوند */
+      grid-template-columns: 1fr !important;
       height: auto !important;
     }
     .grid-item {
-      height: 300px !important; /* ارتفاع مناسب برای هر عکس در موبایل */
+      height: 300px !important;
     }
   }
 </style>
 {{ end }}
-
