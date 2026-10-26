@@ -2,7 +2,7 @@
 <div class="main-content-wrapper">
   {{ $pages := .Site.RegularPages }}
   {{ $total := len $pages }}
-  {{ $totalChunks := div (add $total 3) 4 }} <!-- محاسبه تعداد کادرهای ۴تایی -->
+  {{ $totalChunks := div (add $total 3) 4 }}
 
   {{ range $i := seq $totalChunks }}
     {{ $start := mul (sub $i 1) 4 }}
