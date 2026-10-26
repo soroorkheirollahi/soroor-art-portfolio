@@ -1,10 +1,16 @@
 {{ define "main" }}
 <div class="main-content-wrapper">
-  <!-- استفاده از سینتکس صحیح Chunk برای هوگو -->
-  {{ range collections.Chunk 4 .Site.RegularPages }}
+  {{ $pages := .Site.RegularPages }}
+  {{ $total := len $pages }}
+  {{ $totalChunks := div (add $total 3) 4 }} <!-- محاسبه تعداد کادرهای ۴تایی -->
+
+  {{ range $i := seq $totalChunks }}
+    {{ $start := mul (sub $i 1) 4 }}
+    {{ $chunk := first 4 (after $start $pages) }}
+    
     <div class="horizontal-gallery-container">
       <div class="grid-4-container">
-        {{ range . }}
+        {{ range $chunk }}
           <a href="{{ .RelPermalink }}" class="grid-item">
             {{ if .Params.image }}
               <img src="{{ .Params.image }}" alt="{{ .Title }}" class="grid-image">
