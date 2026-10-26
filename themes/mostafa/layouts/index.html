@@ -1,7 +1,7 @@
 {{ define "main" }}
 <div class="main-content-wrapper">
-  <!-- استفاده از سینتکس صحیح Chunk برای هوگو -->
-  {{ range collections.Chunk 4 .Site.RegularPages }}
+  <!-- استفاده از سینتکس صحیح پایپ‌لاین برای Chunk -->
+  {{ range .Site.RegularPages | collections.Chunk 4 }}
     <div class="horizontal-gallery-container">
       <div class="grid-4-container">
         {{ range . }}
