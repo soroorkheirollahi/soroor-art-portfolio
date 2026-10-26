@@ -29,3 +29,20 @@ collections:
       - { label: "Image", name: "image", widget: "image", required: false }
       - { label: "YouTube Link", name: "youtube", widget: "string", required: false }
       - { label: "Description", name: "body", widget: "markdown" }
+  - name: "pages"
+    label: "Pages (صفحات سایت)"
+    files:
+      - name: "resume_en"
+        label: "Resume (رزومه انگلیسی)"
+        file: "content/en/resume.md"
+        fields:
+          - { label: "Title", name: "title", widget: "string" }
+          - { label: "Date", name: "date", widget: "datetime" }
+          - { label: "Body", name: "body", widget: "markdown" }
+      - name: "resume_fa"
+        label: "رزومه (فارسی)"
+        file: "content/fa/resume.md"
+        fields:
+          - { label: "عنوان", name: "title", widget: "string" }
+          - { label: "تاریخ", name: "date", widget: "datetime" }
+          - { label: "متن", name: "body", widget: "markdown" }
