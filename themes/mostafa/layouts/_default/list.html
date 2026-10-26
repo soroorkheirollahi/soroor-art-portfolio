@@ -1,7 +1,7 @@
 {{ define "main" }}
 <div class="main-content-wrapper">
-  <!-- عکس‌ها را ۴ تا ۴ تا جدا می‌کند و برای هر ۴ تا یک کادر می‌سازد -->
-  {{ range .Site.RegularPages.Chunk 4 }}
+  <!-- استفاده از سینتکس صحیح Chunk برای هوگو -->
+  {{ range collections.Chunk 4 .Site.RegularPages }}
     <div class="horizontal-gallery-container">
       <div class="grid-4-container">
         {{ range . }}
@@ -25,21 +25,20 @@
     padding-bottom: 50px !important;
     display: flex !important;
     flex-direction: column !important;
-    align-items: center !important; /* وسط چین کردن */
+    align-items: center !important;
     box-sizing: border-box !important;
   }
 
-  /* کادر ۱.۵ برابر بزرگتر شد (از ۸۰۰x۵۰۰ به ۱۲۰۰x۷۵۰) */
   .horizontal-gallery-container {
     width: 100% !important;
-    max-width: 1200px !important; /* ۸۰۰ ضربدر ۱.۵ */
-    height: 750px !important; /* ۵۰۰ ضربدر ۱.۵ */
+    max-width: 1200px !important; 
+    height: 750px !important; 
     background-color: #2a2a2a !important; 
     border: 1px solid #444 !important;
     border-radius: 12px !important;
     padding: 20px !important; 
     box-sizing: border-box !important;
-    margin-bottom: 40px !important; /* فاصله بین کادرها */
+    margin-bottom: 40px !important; 
   }
 
   .grid-4-container {
