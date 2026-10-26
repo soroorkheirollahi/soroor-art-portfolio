@@ -46,6 +46,37 @@ collections:
           - { label: "عنوان", name: "title", widget: "string" }
           - { label: "تاریخ", name: "date", widget: "datetime" }
           - { label: "متن", name: "body", widget: "markdown" }
+        - name: "about_en"
+        label: "About (درباره من انگلیسی)"
+        file: "content/en/about.md"
+        fields:
+          - { label: "Title", name: "title", widget: "string", default: "About Me" }
+          - { label: "Date", name: "date", widget: "datetime" }
+          - { label: "Body", name: "body", widget: "markdown" }
+
+      - name: "about_fa"
+        label: "درباره من (فارسی)"
+        file: "content/fa/about.md"
+        fields:
+          - { label: "عنوان", name: "title", widget: "string", default: "درباره من" }
+          - { label: "تاریخ", name: "date", widget: "datetime" }
+          - { label: "متن", name: "body", widget: "markdown" }
+
+      - name: "contact_en"
+        label: "Contact (تماس انگلیسی)"
+        file: "content/en/contact.md"
+        fields:
+          - { label: "Title", name: "title", widget: "string", default: "Contact" }
+          - { label: "Date", name: "date", widget: "datetime" }
+          - { label: "Body", name: "body", widget: "markdown" }
+
+      - name: "contact_fa"
+        label: "تماس با من (فارسی)"
+        file: "content/fa/contact.md"
+        fields:
+          - { label: "عنوان", name: "title", widget: "string", default: "تماس با من" }
+          - { label: "تاریخ", name: "date", widget: "datetime" }
+          - { label: "متن", name: "body", widget: "markdown" }
   - name: "settings"
     label: "Settings (تنظیمات سایدبار)"
     files:
