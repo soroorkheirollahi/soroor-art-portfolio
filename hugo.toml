@@ -8,9 +8,6 @@ defaultContentLanguageInSubdir = false
 buildFuture = true
 buildDrafts = true
 
-[pagination]
-  pagerSize = 4
-
 [params]
   [params.author]
     name = "Soroor Kheirollahi"
@@ -31,10 +28,6 @@ buildDrafts = true
     contentDir = "content/fa"
     title = "سرور خیراللهی - هنرمند تجسمی"
     languagedirection = "rtl"
-[[menu.main]]
-  name = "Home"
-  url = "/"
-  weight = 1
 
 [[menu.main]]
   name = "Paintings"
@@ -60,8 +53,3 @@ buildDrafts = true
   name = "Contact"
   url = "/contact/"
   weight = 5
-
-[[menu.main]]
-  name = "About"
-  url = "/about/"
-  weight = 4
