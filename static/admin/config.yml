@@ -8,7 +8,6 @@ media_folder: "static/images/uploads"
 public_folder: "images/uploads"
 
 collections:
-  # بخش نقاشی‌ها
   - name: "paintings"
     label: "Paintings (نقاشی‌ها)"
     folder: "content/en/posts"
@@ -20,7 +19,6 @@ collections:
       - { label: "YouTube Link", name: "youtube", widget: "string", required: false }
       - { label: "Description", name: "body", widget: "markdown" }
 
-  # بخش مجسمه‌ها
   - name: "sculptures"
     label: "Sculptures (مجسمه‌ها)"
     folder: "content/en/sculptures"
@@ -31,14 +29,3 @@ collections:
       - { label: "Image", name: "image", widget: "image", required: false }
       - { label: "YouTube Link", name: "youtube", widget: "string", required: false }
       - { label: "Description", name: "body", widget: "markdown" }
-
-  - name: "settings"
-    label: "تنظیمات سایت (عکس و تبلیغات)"
-    files:
-      - name: "sidebar"
-        label: "اطلاعات سایدبار"
-        file: "data/sidebar.json"
-        fields:
-          - { label: "عکس هنرمند", name: "profile_image", widget: "image" }
-          - { label: "عکس تبلیغاتی (زیر عکس هنرمند)", name: "ad_image", widget: "image", required: false }
-          - { label: "لینک تبلیغات", name: "ad_link", widget: "string", required: false }
