@@ -13,7 +13,7 @@
         {{ range $chunk }}
           <a href="{{ .RelPermalink }}" class="grid-item">
             {{ if .Params.image }}
-              <!-- این بخش آدرس عکس را به صورت دستی و کامل می‌سازد تا همیشه کار کند -->
+              <!-- همان کد طلایی که در single.html کار کرد -->
               {{ $img := .Params.image }}
               {{ if not (hasPrefix $img "http") }}
                 {{ $img = printf "https://soroorkheirollahi.github.io/soroor-art-portfolio/%s" (strings.TrimPrefix "/" $img) }}
