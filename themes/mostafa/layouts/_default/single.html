@@ -201,3 +201,23 @@
   }
 </style>
 {{ end }}
+  /* اصلاح کادرها در موبایل */
+  @media (max-width: 1024px) {
+    .main-content-wrapper, .single-post-container {
+      margin-left: 0 !important; /* حذف فاصله ۳۲۰ پیکسلی در موبایل */
+      padding: 15px !important;
+      width: 100% !important;
+    }
+    .horizontal-gallery-container {
+      height: auto !important; /* ارتفاع آزاد در موبایل */
+      min-height: auto !important;
+      padding: 10px !important;
+    }
+    .grid-4-container {
+      grid-template-columns: 1fr !important; /* عکس‌ها در موبایل تک‌ستونه شوند */
+      height: auto !important;
+    }
+    .grid-item {
+      height: 300px !important; /* ارتفاع مناسب برای هر عکس در موبایل */
+    }
+  }
