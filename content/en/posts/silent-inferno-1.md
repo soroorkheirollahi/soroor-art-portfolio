@@ -1,7 +1,7 @@
 ---
 title: silent inferno
 date: 2020-02-29T00:16:00
-image: /images/uploads/IMG_20261026_213016_477 (1).jpg
+image: /images/uploads/IMG_۲۰۲۶۱۰۳۰_۰۰۲۷۲۴.jpg
 youtube: ''
 ---
 
