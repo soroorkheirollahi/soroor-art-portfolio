@@ -1,7 +1,7 @@
 ---
 title: Resilience in Confinement
 date: 2026-10-29T23:05:00
-image: /images/uploads/photo_30915372006_x.jpg
+image: /images/uploads/photo_30915395277_x.jpg
 youtube: ''
 ---
 
