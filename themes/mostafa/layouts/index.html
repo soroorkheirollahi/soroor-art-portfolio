@@ -1,15 +1,16 @@
 {{ define "main" }}
 <div class="main-content-wrapper">
+  <!-- عکس‌ها را ۲ تا ۲ تا جدا می‌کند -->
   {{ $pages := where .Site.RegularPages "Section" "posts" }}
   {{ $total := len $pages }}
-  {{ $totalChunks := div (add $total 3) 4 }}
+  {{ $totalChunks := div (add $total 1) 2 }}
 
   {{ range $i := seq $totalChunks }}
-    {{ $start := mul (sub $i 1) 4 }}
-    {{ $chunk := first 4 (after $start $pages) }}
+    {{ $start := mul (sub $i 1) 2 }}
+    {{ $chunk := first 2 (after $start $pages) }}
     
     <div class="horizontal-gallery-container">
-      <div class="grid-4-container">
+      <div class="grid-2-container">
         {{ range $chunk }}
           <a href="{{ .RelPermalink }}" class="grid-item">
             {{ if .Params.image }}
@@ -39,6 +40,7 @@
     box-sizing: border-box !important;
   }
 
+  /* ابعاد و جایگاه کادرها دقیقاً حفظ شده است */
   .horizontal-gallery-container {
     width: 100% !important;
     max-width: 1200px !important; 
@@ -51,10 +53,11 @@
     margin-bottom: 40px !important; 
   }
 
-  .grid-4-container {
+  /* گرید داخلی تغییر کرد: ۱ ردیف و ۲ ستون */
+  .grid-2-container {
     display: grid !important;
-    grid-template-columns: repeat(2, 1fr) !important;
-    grid-template-rows: repeat(2, 1fr) !important;
+    grid-template-columns: repeat(2, 1fr) !important; /* ۲ ستون */
+    grid-template-rows: 1fr !important; /* ۱ ردیف */
     gap: 15px !important;
     width: 100% !important;
     height: 100% !important;
@@ -91,8 +94,8 @@
       height: auto !important;
       padding: 10px !important;
     }
-    .grid-4-container {
-      grid-template-columns: 1fr !important;
+    .grid-2-container {
+      grid-template-columns: 1fr !important; /* در موبایل تک‌ستونه شوند */
       height: auto !important;
     }
     .grid-item {
